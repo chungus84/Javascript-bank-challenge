@@ -1,0 +1,26 @@
+{
+    "name": "bank-challenge",
+    "version": "1.0.0",
+    "description": "This challenge helps you practice your OO design skills.",
+    "main": "index.js",
+    "type": "module",
+    "directories": {
+        "doc": "docs"
+    },
+    "scripts": {
+        "test": "jasmine"
+    },
+    "repository": {
+        "type": "git",
+        "url": "git+https://github.com/chungus84/bank-challenge.git"
+    },
+    "author": "",
+    "license": "ISC",
+    "bugs": {
+        "url": "https://github.com/chungus84/bank-challenge/issues"
+    },
+    "homepage": "https://github.com/chungus84/bank-challenge#readme",
+    "devDependencies": {
+        "jasmine": "^5.0.2"
+    }
+}
