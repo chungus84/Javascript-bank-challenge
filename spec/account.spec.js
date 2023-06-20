@@ -2,20 +2,32 @@ import Account from "../src/Account.js";
 
 describe('Tests for Accounts', () => {
 
+    let testAccount, testBalance;
+
     describe('Tests for call getBalance on Account', () => {
+
         class MockBalance {
             #balance
             constructor(balance) {
                 this.#balance = balance;
             }
-            getBalance = () => { }
+            getBalance = () => { return this.#balance }
         }
+
+        beforeEach(() => {
+            testBalance = new MockBalance(10)
+            testAccount = new Account(testBalance);
+        })
+
+        afterEach(() => {
+            testBalance = undefined;
+            testAccount = undefined;
+        })
 
         it('should check getBalance on Account is called', () => {
 
             // ARRANGE
-            const testBalance = new MockBalance(10)
-            const testAccount = new Account(testBalance);
+
             const balanceSpy = spyOn(testBalance, 'getBalance');
 
             // ACT
@@ -26,5 +38,14 @@ describe('Tests for Accounts', () => {
 
         });
 
+        it('should return the account balance when called on Account', () => {
+
+            // ARRANGE
+            const expected = 10;
+            //ACT
+            // ASSERT
+            expect(testAccount.getBalance()).toBe(expected);
+
+        })
     });
 });
