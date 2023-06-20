@@ -15,10 +15,10 @@ You'll work alone, and you'll also review your own code so you can practice refl
 
 ### Acceptance criteria
 
-**Given** a client makes a deposit of 1000 on 10-01-2012  
-**And** a deposit of 2000 on 13-01-2012  
-**And** a withdrawal of 500 on 14-01-2012  
-**When** she prints her bank statement  
+**Given** a client makes a deposit of 1000 on 10-01-2012
+**And** a deposit of 2000 on 13-01-2012
+**And** a withdrawal of 500 on 14-01-2012
+**When** she prints her bank statement
 **Then** she would see
 
 ```
@@ -39,5 +39,84 @@ date       || credit  || debit  || balance
 
 #### Extended
 - [ ] Can you format the console output?  Credited values should be GREEN and debited values should be RED.  The balance should be GREEN if positive and RED if negative
+
+#### User Stories & Domain Models Standard
+```
+As a user,
+I want to see my bank balance,
+so I know how much I have in my account.
+
+|  Objects   |  Properties               |   Messages                    |  Output  |
+| ---------- | ------------------------- | ----------------------------- | -------- |
+|  Balance   | balance @int              | getBalance()                  | @int     |
+|  Account   | AccountBalance = @Balance | getBalance()                  | @int     |
+
+As a user,
+I want to deposit an amount of money,
+ so I can add money to an account.
+
+|  Objects   |  Properties               |   Messages                    |  Output  |
+| ---------- | ------------------------- | ----------------------------- | -------- |
+|  Balance   | balance @int              |                               |          |
+|  Account   | accountBalance = @Balance | deposit(@int)                 | @void    |
+
+As a user,
+I want to withdraw an amount of money,
+so I can use my money
+
+|  Objects   |  Properties               |   Messages                    |  Output  |
+| ---------- | ------------------------- | ----------------------------- | -------- |
+|  Balance   | balance @int              |                               |          |
+|  Account   | accountBalance = @Balance | withdraw(@int)                | @void    |
+
+As a user,
+I want to show all deposits I have made,
+So I can keep track of my transactions.
+
+|  Objects        |  Properties                       |   Messages        |  Output  |
+| --------------- | --------------------------------- | ------------------| -------- |
+|  Account        | accountTransactions[@Transaction] | addTransaction()  | @void    |
+|  Transaction    |                                   |                   |          |
+
+
+As a user,
+I want to add all withdrawals I have made to accountTransactions,
+So I can keep track of my transactions.
+
+|  Objects        |  Properties                       |   Messages        |  Output  |
+| --------------- | --------------------------------- | ------------------| -------- |
+|  Account        | accountTransactions[@Transaction] | addTransaction()  | @void    |
+|  Transaction    |                                   |                   |          |
+
+
+As a user,
+I want to print statement to show my deposits, withdrawals and balance in date order.
+To show my account activity.
+
+|  Objects        |  Properties                       |   Messages         |  Output  |
+| --------------- | --------------------------------- | -------------------| -------- |
+|  Account        | accountTransactions[@Transaction] | getTransactions()  | @Array   |
+|  Statement      |                                   | printStatement()   | @String  |
+```
+#### Extended user stories and domain models
+```
+As a user,
+When calling printStatement I want to see all deposits highlighted in green,
+To easily see what I have deposited.
+
+|  Objects        |  Properties     |   Messages         |  Output  |
+| --------------- | --------------- | -------------------| -------- |
+|  Statement      |  ???            | ???                | ???      |
+
+As a user,
+When calling printStatement I want to see all withdrawals highlighted in red,
+To easily see what I have withdrawn.
+
+|  Objects        |  Properties     |   Messages         |  Output  |
+| --------------- | --------------- | -------------------| -------- |
+|  Statement      |  ???            | ???                | ???      |
+
+```
+
 
 You may find this link useful [Output to the command line using NodeJS](https://nodejs.dev/en/learn/output-to-the-command-line-using-nodejs/) - check the formatting section (and this links out to a GitHub doc on the [ANSI color codes](https://gist.github.com/iamnewton/8754917))
