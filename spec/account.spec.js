@@ -158,6 +158,7 @@ describe('Tests for Accounts', () => {
             testAccount.withdraw(amountToWithdraw);
             // ASSERT
             expect(testAccount.getBalance()).toBe(expected);
-        })
+        });
+
     })
 });

@@ -104,7 +104,19 @@ describe('Balance Test Suite', () => {
             // ACT
             // ASSERT
             expect(() => { testBalance.withdraw(amountToTakeout) }).toThrowError();
-        })
+        });
+
+        it('should convert a string that contains a parsable number e.g "50" into an int', () => {
+            // ARRANGE
+            const amountToWithdraw = '50';
+            const expected = 50;
+            // ACT
+            testBalance.withdraw(amountToWithdraw);
+            // ASSERT
+            expect(testBalance.getBalance()).toBe(expected);
+        });
+
+
     })
 
 
