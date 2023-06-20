@@ -4,15 +4,42 @@ describe('Balance Test Suite', () => {
 
     let testBalance;
 
-    it('should check getBalance is called on Balance and returns the balance amount', () => {
+    describe('getBalance Tests', () => {
+        it('should check getBalance is called on Balance and returns the balance amount', () => {
 
-        // ARRANGE
-        testBalance = new Balance(10);
-        const expected = 10;
+            // ARRANGE
+            testBalance = new Balance(10);
+            const expected = 10;
 
-        // ACT
+            // ACT
 
-        // ASSERT
-        expect(testBalance.getBalance()).toBe(expected);
+            // ASSERT
+            expect(testBalance.getBalance()).toBe(expected);
+        });
     });
-})
+
+    describe('deposit Tests', () => {
+
+        beforeEach(() => {
+            testBalance = new Balance(10);
+        });
+
+        afterEach(() => {
+            testBalance = undefined;
+        });
+
+        it('should add the specified amount to balance', () => {
+
+            // ARRANGE
+            const amountToAdd = 100;
+            const expected = 110;
+            // ACT
+            testBalance.deposit(amountToAdd);
+            // ASSERT
+            expect(testBalance.getBalance()).toBe(expected);
+
+        });
+    });
+
+
+});

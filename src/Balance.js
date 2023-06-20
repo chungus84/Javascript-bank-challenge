@@ -10,6 +10,10 @@ class Balance {
         return this.#balance;
     }
 
+    deposit(amountToAdd) {
+        this.#balance += amountToAdd;
+    }
+
 
 }
 

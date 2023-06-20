@@ -48,4 +48,39 @@ describe('Tests for Accounts', () => {
 
         })
     });
+
+    describe('Tests for deposit on Account', () => {
+
+        class MockBalance {
+            #balance
+            constructor(balance) {
+                this.#balance = balance;
+            }
+            getBalance = () => { return this.#balance }
+
+            deposit = (amountToAdd) => { this.#balance += amountToAdd }
+        }
+
+        beforeEach(() => {
+            testBalance = new MockBalance(10)
+            testAccount = new Account(testBalance);
+        })
+
+        afterEach(() => {
+            testBalance = undefined;
+            testAccount = undefined;
+        })
+
+        it('should check deposit is called', () => {
+
+            // ARRANGE
+            const amountToDeposit = 100;
+            const balanceSpy = spyOn(testBalance, 'deposit');
+
+            // ACT
+            testAccount.deposit(amountToDeposit);
+            // ASSERT
+            expect(balanceSpy).toHaveBeenCalledWith(amountToDeposit);
+        })
+    })
 });
