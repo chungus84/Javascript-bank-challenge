@@ -63,8 +63,8 @@ describe('Balance Test Suite', () => {
             const nullDeposit = null;
             // ACT
             // ASSERT
-            expect(() => { testBalance.deposit(amountToDeposit) }).toThrowError();
-        })
+            expect(() => { testBalance.deposit(nullDeposit) }).toThrowError();
+        });
 
     });
 

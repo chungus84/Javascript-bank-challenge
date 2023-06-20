@@ -11,7 +11,7 @@ class Balance {
     }
 
     deposit(amountToAdd) {
-        if (isNaN(amountToAdd)) throw new Error('Please enter a valid number');
+        if (isNaN(amountToAdd) || amountToAdd === null) throw new Error('Please enter a valid number');
         this.#balance += parseInt(amountToAdd);
     }
 
