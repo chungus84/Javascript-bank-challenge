@@ -58,7 +58,9 @@ describe('Tests for Accounts', () => {
             }
             getBalance = () => { return this.#balance }
 
-            deposit = (amountToAdd) => { this.#balance += amountToAdd }
+            deposit = (amountToAdd) => {
+                if (!isNaN(amountToAdd)) this.#balance += parseInt(amountToAdd);
+            }
         }
 
         beforeEach(() => {
@@ -94,5 +96,16 @@ describe('Tests for Accounts', () => {
             expect(testAccount.getBalance()).toBe(expected);
 
         });
+
+        it('should convert a string that contains a parsable number e.g "100" into an int when called from Account class instance', () => {
+            // ARRANGE
+            const amountToDeposit = '100';
+            const expected = 110;
+            // ACT
+            testAccount.deposit(amountToDeposit)
+            // ASSERT
+            expect(testAccount.getBalance()).toBe(expected);
+        });
+
     })
 });

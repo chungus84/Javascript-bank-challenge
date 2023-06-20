@@ -11,7 +11,7 @@ class Balance {
     }
 
     deposit(amountToAdd) {
-        this.#balance += amountToAdd;
+        if (!isNaN(amountToAdd)) this.#balance += parseInt(amountToAdd);
     }
 
 

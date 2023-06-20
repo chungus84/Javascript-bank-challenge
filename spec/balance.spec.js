@@ -39,6 +39,17 @@ describe('Balance Test Suite', () => {
             expect(testBalance.getBalance()).toBe(expected);
 
         });
+
+        it('should convert a string that contains a parsable number e.g "100" into an int', () => {
+            // ARRANGE
+            const amountToDeposit = '100';
+            const expected = 110;
+            // ACT
+            testBalance.deposit(amountToDeposit)
+            // ASSERT
+            expect(testBalance.getBalance()).toBe(expected);
+        });
+
     });
 
 
