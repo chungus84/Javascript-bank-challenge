@@ -96,6 +96,15 @@ describe('Balance Test Suite', () => {
             // ASSERT
             expect(testBalance.getBalance()).toBe(expected);
         })
+
+        it('should throw an error if the amountToWithdraw is greater than the balance', () => {
+
+            // ARRANGE
+            const amountToTakeout = 120;
+            // ACT
+            // ASSERT
+            expect(() => { testBalance.withdraw(amountToTakeout) }).toThrowError();
+        })
     })
 
 
