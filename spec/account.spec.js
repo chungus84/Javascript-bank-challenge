@@ -59,7 +59,8 @@ describe('Tests for Accounts', () => {
             getBalance = () => { return this.#balance }
 
             deposit = (amountToAdd) => {
-                if (!isNaN(amountToAdd)) this.#balance += parseInt(amountToAdd);
+                if (isNaN(amountToAdd)) throw new Error('Please enter a valid number')
+                this.#balance += parseInt(amountToAdd);
             }
         }
 
@@ -107,6 +108,46 @@ describe('Tests for Accounts', () => {
             expect(testAccount.getBalance()).toBe(expected);
         });
 
+        it('should throw an error if string isNaN()', () => {
+            // ARRANGE
+            const amountToDeposit = 'hello';
+            // ACT
+            // ASSERT
+            expect(() => { testAccount.deposit(amountToDeposit) }).toThrowError();
+        });
 
+
+    });
+
+    describe('withdrawal tests', () => {
+        class MockBalance {
+            #balance
+            constructor(balance) {
+                this.#balance = balance;
+            }
+            getBalance = () => { return this.#balance }
+
+            withdraw = amountToWithdraw => this.#balance -= amountToWithdraw;
+        }
+
+        beforeEach(() => {
+            testBalance = new MockBalance(100)
+            testAccount = new Account(testBalance);
+        })
+
+        afterEach(() => {
+            testBalance = undefined;
+            testAccount = undefined;
+        })
+
+        it('should call withdraw from balance and remove 50 from balance', () => {
+            // ARRANGE
+            const expected = 50;
+            const amountToWithdraw = 50;
+            // ACT
+            testAccount.withdraw(amountToWithdraw);
+            // ASSERT
+            expect(testAccount.getBalance()).toBe(expected);
+        })
     })
 });

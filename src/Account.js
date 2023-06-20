@@ -13,6 +13,10 @@ class Account {
     deposit(amountToAdd) {
         this.#accountBalance.deposit(amountToAdd);
     }
+
+    withdraw(amountToWithdraw) {
+        this.#accountBalance.withdraw(amountToWithdraw);
+    }
 }
 
 export default Account;
