@@ -50,6 +50,22 @@ describe('Balance Test Suite', () => {
             expect(testBalance.getBalance()).toBe(expected);
         });
 
+        it('should throw an error if string isNaN()', () => {
+            // ARRANGE
+            const amountToDeposit = 'hello';
+            // ACT
+            // ASSERT
+            expect(() => { testBalance.deposit(amountToDeposit) }).toThrowError();
+        });
+
+        it('should throw an error if given a null value', () => {
+            // ARRANGE
+            const nullDeposit = null;
+            // ACT
+            // ASSERT
+            expect(() => { testBalance.deposit(amountToDeposit) }).toThrowError();
+        })
+
     });
 
 
