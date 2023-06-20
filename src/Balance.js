@@ -15,6 +15,10 @@ class Balance {
         this.#balance += parseInt(amountToAdd);
     }
 
+    withdraw(amountToWithdraw) {
+        this.#balance -= amountToWithdraw;
+    }
+
 
 }
 

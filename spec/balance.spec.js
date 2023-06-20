@@ -76,5 +76,27 @@ describe('Balance Test Suite', () => {
 
     });
 
+    describe('withdraw tests', () => {
+
+        beforeEach(() => {
+            testBalance = new Balance(100);
+        });
+
+        afterEach(() => {
+            testBalance = undefined;
+        });
+
+        it('should withdraw 50 from the balance when called', () => {
+
+            // ARRANGE
+            const expected = 50;
+            const amountToWithdraw = 50;
+            // ACT
+            testBalance.withdraw(amountToWithdraw);
+            // ASSERT
+            expect(testBalance.getBalance()).toBe(expected);
+        })
+    })
+
 
 });
