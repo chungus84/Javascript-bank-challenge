@@ -139,6 +139,16 @@ describe('Tests for Accounts', () => {
             testBalance = undefined;
             testAccount = undefined;
         })
+        it('should call withdraw in Account class isntance', () => {
+            // ARRANGE
+            const amountToWithdraw = 50;
+            const balanceSpy = spyOn(testBalance, 'withdraw');
+
+            // ACT
+            testAccount.withdraw(amountToWithdraw);
+            // ASSERT
+            expect(balanceSpy).toHaveBeenCalledWith(amountToWithdraw);
+        })
 
         it('should call withdraw from balance and remove 50 from balance', () => {
             // ARRANGE
