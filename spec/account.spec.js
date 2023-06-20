@@ -81,6 +81,18 @@ describe('Tests for Accounts', () => {
             testAccount.deposit(amountToDeposit);
             // ASSERT
             expect(balanceSpy).toHaveBeenCalledWith(amountToDeposit);
-        })
+        });
+
+        it('should check deposit when called in the Account class instance adds the amount to the balance', () => {
+
+            // ARRANGE
+            const amountToDeposit = 100;
+            const expected = 110;
+            // ACT
+            testAccount.deposit(amountToDeposit)
+            // ASSERT
+            expect(testAccount.getBalance()).toBe(expected);
+
+        });
     })
 });
