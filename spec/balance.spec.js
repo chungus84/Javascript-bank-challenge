@@ -66,6 +66,14 @@ describe('Balance Test Suite', () => {
             expect(() => { testBalance.deposit(nullDeposit) }).toThrowError();
         });
 
+        it('should throw an error if given an undefined value', () => {
+            // ARRANGE
+            const undefinedDeposit = undefined;
+            // ACT
+            // ASSERT
+            expect(() => { testBalance.deposit(undefinedDeposit) }).toThrowError();
+        });
+
     });
 
 
