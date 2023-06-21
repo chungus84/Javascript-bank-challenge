@@ -131,6 +131,14 @@ describe('Balance Test Suite', () => {
             // ASSERT
             expect(() => { testBalance.withdraw(nullDeposit) }).toThrowError();
         });
+
+        it('should throw an error if given an undefined value', () => {
+            // ARRANGE
+            const undefinedDeposit = undefined;
+            // ACT
+            // ASSERT
+            expect(() => { testBalance.withdraw(undefinedDeposit) }).toThrowError();
+        });
     })
 
 
