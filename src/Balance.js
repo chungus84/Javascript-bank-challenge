@@ -17,6 +17,7 @@ class Balance {
 
     withdraw(amountToWithdraw) {
         if (amountToWithdraw > this.#balance) throw new Error('You do not have enough in your account');
+        if (isNaN(amountToWithdraw) || amountToWithdraw === null) throw new Error('Please enter a valid number');
         this.#balance -= parseInt(amountToWithdraw);
     }
 
