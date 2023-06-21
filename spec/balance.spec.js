@@ -139,6 +139,34 @@ describe('Balance Test Suite', () => {
             // ASSERT
             expect(() => { testBalance.withdraw(undefinedDeposit) }).toThrowError();
         });
+    });
+
+    describe('ValidateEntry Tests', () => {
+
+        beforeEach(() => {
+            testBalance = new Balance(50);
+        });
+
+        afterEach(() => {
+            testBalance = undefined;
+        });
+
+        it('should throw an error if given a string "hello"', () => {
+
+            // ARRANGE
+            const stringEntry = 'hello';
+            // actual = testBalance.validateEntry(stringEntry);
+            // ACT
+            // ASSERT
+            // console.log(actual);
+            expect(() => { testBalance.validateEntry(stringEntry) }).toThrowError();
+        });
+
+        it('should throw error if given a null value', () => {
+            const nullEntry = null;
+
+            expect(() => { testBalance.validateEntry(nullEntry) }).toThrowError();
+        })
     })
 
 

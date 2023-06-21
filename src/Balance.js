@@ -21,6 +21,10 @@ class Balance {
         this.#balance -= parseInt(amountToWithdraw);
     }
 
+    validateEntry(entryToValidate) {
+        if (isNaN(entryToValidate) || entryToValidate === null) throw new Error('Please enter a valid number');
+    }
+
 
 }
 
