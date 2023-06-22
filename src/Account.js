@@ -20,8 +20,9 @@ class Account {
     }
 
     deposit(transactionObject) {
-        const transaction = transactionObject.getFullTransaction();
-        this.#accountBalance.deposit(transaction.amount);
+        const transaction = transactionObject;
+        this.#accountBalance.deposit(transaction.getAmount());
+        transaction.setTransactionType('deposit');
         this.addTransaction(transaction);
     }
 

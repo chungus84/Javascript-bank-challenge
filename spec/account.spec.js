@@ -104,6 +104,9 @@ describe('Tests for Accounts', () => {
                     transactionType: this.#transactionType,
                 }
             }
+            setTransactionType(transactionToAdd) {
+                this.#transactionType = transactionToAdd;
+            }
         }
 
         beforeEach(() => {
