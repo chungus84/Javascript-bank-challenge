@@ -22,6 +22,7 @@ class Account {
     deposit(transactionObject) {
         const transaction = transactionObject.getFullTransaction();
         this.#accountBalance.deposit(transaction.amount);
+        this.addTransaction(transaction);
     }
 
     withdraw(amountToWithdraw) {

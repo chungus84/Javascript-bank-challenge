@@ -172,6 +172,22 @@ describe('Tests for Accounts', () => {
             expect(() => { testAccount.deposit(testTransaction) }).toThrowError();
         });
 
+        it('should addTransaction is called when deposit is called and adds to accountTransactions array', () => {
+            // ARRANGE
+            const testDate = '12/12/2022';
+            const testType = 'deposit'
+            const amountToDeposit = 100;
+            const testTransaction = new MockTransaction(testDate, amountToDeposit, testType);
+            const expected = 1;
+
+            // ACT
+            testAccount.deposit(testTransaction);
+
+            // ASSERT
+            expect(testAccount.getTransactions().length).toBe(expected);
+
+        })
+
 
     });
 
