@@ -1,6 +1,7 @@
 class Account {
 
     #accountBalance;
+    #accountTransactions = [];
 
     constructor(balanceObject) {
         this.#accountBalance = balanceObject;
@@ -10,6 +11,14 @@ class Account {
         return this.#accountBalance.getBalance();
     }
 
+    getTransactions() {
+        return this.#accountTransactions;
+    }
+
+    addTransaction(transactionToAdd) {
+        this.#accountTransactions = [...this.#accountTransactions, transactionToAdd];
+    }
+
     deposit(amountToAdd) {
         this.#accountBalance.deposit(amountToAdd);
     }
@@ -17,6 +26,9 @@ class Account {
     withdraw(amountToWithdraw) {
         this.#accountBalance.withdraw(amountToWithdraw);
     }
+
+
+
 }
 
 export default Account;

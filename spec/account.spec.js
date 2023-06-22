@@ -122,8 +122,10 @@ describe('Tests for Accounts', () => {
     describe('withdrawal tests', () => {
         class MockBalance {
             #balance
+
             constructor(balance) {
                 this.#balance = balance;
+
             }
             getBalance = () => { return this.#balance }
 
@@ -139,7 +141,7 @@ describe('Tests for Accounts', () => {
             testBalance = undefined;
             testAccount = undefined;
         })
-        it('should call withdraw in Account class isntance', () => {
+        it('should call withdraw in Account class instance', () => {
             // ARRANGE
             const amountToWithdraw = 50;
             const balanceSpy = spyOn(testBalance, 'withdraw');
@@ -159,6 +161,45 @@ describe('Tests for Accounts', () => {
             // ASSERT
             expect(testAccount.getBalance()).toBe(expected);
         });
+
+    });
+
+    describe('Account Transaction Tests', () => {
+        class MockBalance {
+            #balance
+            constructor(balance) {
+                this.#balance = balance;
+            }
+            getBalance = () => { return this.#balance }
+
+            deposit = (amountToAdd) => {
+                if (isNaN(amountToAdd)) throw new Error('Please enter a valid number')
+                this.#balance += parseInt(amountToAdd);
+            }
+        }
+
+        beforeEach(() => {
+            testBalance = new MockBalance(100)
+            testAccount = new Account(testBalance);
+        })
+
+        afterEach(() => {
+            testBalance = undefined;
+            testAccount = undefined;
+        });
+
+        it('should add deposit to accountTransactions', () => {
+
+            // ARRANGE
+            const amountToDeposit = 50;
+            const expected = 1;
+            // ACT
+            testAccount.addTransaction(amountToDeposit);
+
+            // ASSERT
+            expect(testAccount.getTransactions().length).toBe(1);
+
+        })
 
     })
 });
