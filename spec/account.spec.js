@@ -8,20 +8,36 @@ describe('Tests for Accounts', () => {
 
         class MockBalance {
             #balance
-            constructor(balance) {
-                this.#balance = balance;
+            constructor(amount) {
+                this.#balance = amount;
             }
             getBalance = () => { return this.#balance }
         }
+        class MockTransaction {
+            #date;
+            #transactionType;
+            #amount;
+            constructor(date, amount, transactionType = '') {
+                this.#date = date;
+                this.#amount = amount;
+                this.#transactionType = transactionType;
+
+            }
+            getAmount() {
+                return this.#amount;
+            }
+        }
 
         beforeEach(() => {
-            testBalance = new MockBalance(10)
+            const testAmount = 10;
+            testBalance = new MockBalance(testAmount);
             testAccount = new Account(testBalance);
         })
 
         afterEach(() => {
             testBalance = undefined;
             testAccount = undefined;
+
         })
 
         it('should check getBalance on Account is called', () => {
@@ -53,19 +69,46 @@ describe('Tests for Accounts', () => {
 
         class MockBalance {
             #balance
-            constructor(balance) {
-                this.#balance = balance;
+            constructor(amount) {
+                this.#balance = amount
             }
             getBalance = () => { return this.#balance }
 
+            getBalance = () => { return this.#balance }
+
             deposit = (amountToAdd) => {
+
                 if (isNaN(amountToAdd)) throw new Error('Please enter a valid number')
                 this.#balance += parseInt(amountToAdd);
             }
         }
 
+        class MockTransaction {
+            #date;
+            #transactionType;
+            #amount;
+            constructor(date, amount, transactionType = '') {
+                this.#date = date;
+                this.#amount = amount;
+                this.#transactionType = transactionType;
+
+            }
+            getAmount() {
+                return this.#amount;
+            }
+
+            getFullTransaction() {
+                return {
+                    date: this.#date,
+                    amount: this.#amount,
+                    transactionType: this.#transactionType,
+                }
+            }
+        }
+
         beforeEach(() => {
-            testBalance = new MockBalance(10)
+            const testAmount = 10;
+            testBalance = new MockBalance(10);
             testAccount = new Account(testBalance);
         })
 
@@ -77,11 +120,15 @@ describe('Tests for Accounts', () => {
         it('should check deposit is called', () => {
 
             // ARRANGE
+            const testDate = '12/12/2022';
+            const testType = 'deposit'
             const amountToDeposit = 100;
+            const testTransaction = new MockTransaction(testDate, amountToDeposit, testType);
             const balanceSpy = spyOn(testBalance, 'deposit');
+            // console.log(testTransaction.getFullTransaction().amount);
 
             // ACT
-            testAccount.deposit(amountToDeposit);
+            testAccount.deposit(testTransaction);
             // ASSERT
             expect(balanceSpy).toHaveBeenCalledWith(amountToDeposit);
         });
@@ -89,10 +136,13 @@ describe('Tests for Accounts', () => {
         it('should check deposit when called in the Account class instance adds the amount to the balance', () => {
 
             // ARRANGE
+            const testDate = '12/12/2022';
+            const testType = 'deposit'
             const amountToDeposit = 100;
+            const testTransaction = new MockTransaction(testDate, amountToDeposit, testType);
             const expected = 110;
             // ACT
-            testAccount.deposit(amountToDeposit)
+            testAccount.deposit(testTransaction)
             // ASSERT
             expect(testAccount.getBalance()).toBe(expected);
 
@@ -100,20 +150,26 @@ describe('Tests for Accounts', () => {
 
         it('should convert a string that contains a parsable number e.g "100" into an int when called from Account class instance', () => {
             // ARRANGE
+            const testDate = '12/12/2022';
+            const testType = 'deposit'
             const amountToDeposit = '100';
+            const testTransaction = new MockTransaction(testDate, amountToDeposit, testType);
             const expected = 110;
             // ACT
-            testAccount.deposit(amountToDeposit)
+            testAccount.deposit(testTransaction)
             // ASSERT
             expect(testAccount.getBalance()).toBe(expected);
         });
 
         it('should throw an error if string isNaN()', () => {
             // ARRANGE
+            const testDate = '12/12/2022';
+            const testType = 'deposit'
             const amountToDeposit = 'hello';
+            const testTransaction = new MockTransaction(testDate, amountToDeposit, testType);
             // ACT
             // ASSERT
-            expect(() => { testAccount.deposit(amountToDeposit) }).toThrowError();
+            expect(() => { testAccount.deposit(testTransaction) }).toThrowError();
         });
 
 
@@ -122,14 +178,30 @@ describe('Tests for Accounts', () => {
     describe('withdrawal tests', () => {
         class MockBalance {
             #balance
-
-            constructor(balance) {
-                this.#balance = balance;
-
+            constructor(amount) {
+                this.#balance = amount
             }
             getBalance = () => { return this.#balance }
 
+            getBalance = () => { return this.#balance }
+
             withdraw = amountToWithdraw => this.#balance -= amountToWithdraw;
+        }
+
+        class MockTransaction {
+            #date;
+            #transactionType;
+            #amount;
+            constructor(date, amount, transactionType = '') {
+                this.#date = date;
+                this.#amount = amount;
+                this.#transactionType = transactionType;
+
+            }
+            getAmount() {
+                return this.#amount;
+            }
+
         }
 
         beforeEach(() => {
@@ -167,9 +239,11 @@ describe('Tests for Accounts', () => {
     describe('Account Transaction Tests', () => {
         class MockBalance {
             #balance
-            constructor(balance) {
-                this.#balance = balance;
+            constructor(amount) {
+                this.#balance = amount
             }
+            getBalance = () => { return this.#balance }
+
             getBalance = () => { return this.#balance }
 
             deposit = (amountToAdd) => {
@@ -184,8 +258,9 @@ describe('Tests for Accounts', () => {
             #amount;
             constructor(date, amount, transactionType = '') {
                 this.#date = date;
-                this.#transactionType = transactionType;
                 this.#amount = amount;
+                this.#transactionType = transactionType;
+
             }
         }
 
@@ -226,6 +301,30 @@ describe('Tests for Accounts', () => {
 
             // ASSERT
             expect(testAccount.getTransactions()[0]).toBeInstanceOf(MockTransaction);
+        });
+
+        it('should add 3 transactions to the array', () => {
+
+            // ARRANGE
+            const transactionArray = [
+                new MockTransaction('13/12/2022', 50, 'deposit'),
+                new MockTransaction('14/12/2022', 100),
+                new MockTransaction('13/12/2022', 70, 'deposit'),
+            ]
+            const expected = 3
+
+            // ACT
+            for (const transaction of transactionArray) {
+                testAccount.addTransaction(transaction);
+            }
+
+            // ASSERT
+            expect(testAccount.getTransactions().length).toBe(expected);
+
+
+
+
+
         })
 
 

@@ -19,8 +19,9 @@ class Account {
         this.#accountTransactions = [...this.#accountTransactions, transactionToAdd];
     }
 
-    deposit(amountToAdd) {
-        this.#accountBalance.deposit(amountToAdd);
+    deposit(transactionObject) {
+        const transaction = transactionObject.getFullTransaction();
+        this.#accountBalance.deposit(transaction.amount);
     }
 
     withdraw(amountToWithdraw) {
