@@ -16,8 +16,8 @@ class Balance {
     }
 
     withdraw(amountToWithdraw) {
-        if (amountToWithdraw > this.#balance) throw new Error('You do not have enough in your account');
         this.validateEntry(amountToWithdraw);
+        if (amountToWithdraw > this.#balance) throw new Error('You do not have enough in your account');
         this.#balance -= parseInt(amountToWithdraw);
     }
 
