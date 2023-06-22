@@ -64,6 +64,22 @@ describe('Transaction Tests', () => {
         // ASSERT
         expect(actual).toEqual(expected);
 
+    });
+
+    it('setTransactionType should set the transactionType', () => {
+
+        // ARRANGE
+        const amount = 60;
+        const transactionDate = '10/10/2010';
+        testTransaction = new Transaction(transactionDate, amount);
+        const expected = new Transaction(transactionDate, amount, 'deposit');
+        const transactionType = 'deposit'
+
+        // ACT
+        testTransaction.setTransactionType(transactionType);
+
+        // ASSERT
+        expect(testTransaction).toEqual(expected)
     })
 
 })

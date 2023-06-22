@@ -19,6 +19,10 @@ class Transaction {
             transactionType: this.#transactionType,
         }
     }
+
+    setTransactionType(transactionToAdd) {
+        this.#transactionType = transactionToAdd;
+    }
 }
 
 export default Transaction;
