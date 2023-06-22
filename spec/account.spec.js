@@ -178,6 +178,17 @@ describe('Tests for Accounts', () => {
             }
         }
 
+        class MockTransaction {
+            #date;
+            #transactionType;
+            #amount;
+            constructor(date, amount, transactionType = '') {
+                this.#date = date;
+                this.#transactionType = transactionType;
+                this.#amount = amount;
+            }
+        }
+
         beforeEach(() => {
             testBalance = new MockBalance(100)
             testAccount = new Account(testBalance);
@@ -191,15 +202,33 @@ describe('Tests for Accounts', () => {
         it('should add deposit to accountTransactions', () => {
 
             // ARRANGE
+            const dateToTest = '12/11/2022'
+            const transactionType = 'deposit'
             const amountToDeposit = 50;
-            const expected = 1;
+            const testTransaction = new MockTransaction(dateToTest, amountToDeposit, transactionType)
             // ACT
-            testAccount.addTransaction(amountToDeposit);
+            testAccount.addTransaction(testTransaction);
 
             // ASSERT
             expect(testAccount.getTransactions().length).toBe(1);
 
+        });
+
+        it('should after added to the array should return an instance of MockTransaction', () => {
+
+            // ARRANGE
+            const dateToTest = '12/11/2022'
+            const transactionType = 'deposit'
+            const amountToDeposit = 50;
+            const testTransaction = new MockTransaction(dateToTest, amountToDeposit, transactionType)
+            // ACT
+            testAccount.addTransaction(testTransaction);
+
+            // ASSERT
+            expect(testAccount.getTransactions()[0]).toBeInstanceOf(MockTransaction);
         })
+
+
 
     })
 });

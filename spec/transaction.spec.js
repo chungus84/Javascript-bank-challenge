@@ -24,6 +24,7 @@ describe('Transaction Tests', () => {
 
     });
 
+
     it('getFullTransaction should return all fields in an object', () => {
         // ARRANGE
         const amount = 50;
