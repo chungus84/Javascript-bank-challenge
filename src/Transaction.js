@@ -7,6 +7,14 @@ class Transaction {
         this.#transactionType = transactionType;
         this.#amount = amount;
     }
+
+    getFullTransaction() {
+        return {
+            date: this.#date,
+            transactionType: this.#transactionType,
+            amount: this.#amount,
+        }
+    }
 }
 
 export default Transaction;
