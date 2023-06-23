@@ -69,11 +69,9 @@ describe('Tests for Accounts', () => {
 
         class MockBalance {
             #balance
-            constructor(amount) {
+            constructor(amount = 0) {
                 this.#balance = amount
             }
-            getBalance = () => { return this.#balance }
-
             getBalance = () => { return this.#balance }
 
             deposit = (amountToAdd) => {
@@ -103,6 +101,7 @@ describe('Tests for Accounts', () => {
                     date: this.#date,
                     amount: this.#amount,
                     transactionType: this.#transactionType,
+                    balance: this.#balance,
                 }
             }
             setTransactionTypeAndBalance(transactionToAdd, balance) {
@@ -191,19 +190,42 @@ describe('Tests for Accounts', () => {
             // ASSERT
             expect(testAccount.getTransactions().length).toBe(expected);
 
-        })
+        });
 
+        it('add 3 deposit transaction to the accountTransaction array and return a balance on the final array of 220', () => {
+
+            // ARRANGE
+            const transactionArray = [
+                new MockTransaction('13/12/2022', 50),
+                new MockTransaction('14/12/2022', 100),
+                new MockTransaction('13/12/2022', 70),
+            ]
+
+            const newAccount = new Account(new MockBalance());
+
+
+            for (const transaction of transactionArray) {
+                newAccount.deposit(transaction);
+            }
+            const expected = 220;
+
+            // ACT
+            const lastItem = newAccount.getTransactions().slice(-1)
+            const actual = lastItem[0].getFullTransaction().balance
+
+            // ASSERT
+            expect(actual).toBe(expected);
+
+        })
 
     });
 
     describe('withdrawal tests', () => {
         class MockBalance {
             #balance
-            constructor(amount) {
+            constructor(amount = 0) {
                 this.#balance = amount
             }
-            getBalance = () => { return this.#balance }
-
             getBalance = () => { return this.#balance }
 
             withdraw = amountToWithdraw => this.#balance -= amountToWithdraw;
@@ -230,6 +252,7 @@ describe('Tests for Accounts', () => {
                     date: this.#date,
                     amount: this.#amount,
                     transactionType: this.#transactionType,
+                    balance: this.#balance,
                 }
             }
             setTransactionTypeAndBalance(transactionToAdd, balance) {
@@ -283,7 +306,33 @@ describe('Tests for Accounts', () => {
 
             // ASSERT
             expect(testAccount.getTransactions().length).toBe(expected);
-        })
+        });
+
+        it('add 3 withdraw transactions to the accountTransaction array and return a balance on the final array of 100', () => {
+
+            // ARRANGE
+            const transactionArray = [
+                new MockTransaction('13/12/2022', 50),
+                new MockTransaction('14/12/2022', 20),
+                new MockTransaction('13/12/2022', 30),
+            ]
+
+            const newAccount = new Account(new MockBalance(200));
+
+
+            for (const transaction of transactionArray) {
+                newAccount.withdraw(transaction);
+            }
+            const expected = 100;
+
+            // ACT
+            const lastItem = newAccount.getTransactions().slice(-1)
+            const actual = lastItem[0].getFullTransaction().balance
+
+            // ASSERT
+            expect(actual).toBe(expected);
+
+        });
 
     });
 
@@ -307,6 +356,7 @@ describe('Tests for Accounts', () => {
             #date;
             #transactionType;
             #amount;
+            #balance = 0;
             constructor(date, amount, transactionType = '') {
                 this.#date = date;
                 this.#amount = amount;
@@ -369,9 +419,13 @@ describe('Tests for Accounts', () => {
                 testAccount.addTransaction(transaction);
             }
 
+
+
             // ASSERT
             expect(testAccount.getTransactions().length).toBe(expected);
         });
+
+
     });
 
 });

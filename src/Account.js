@@ -22,14 +22,14 @@ class Account {
     deposit(transactionObject) {
         const transaction = transactionObject;
         this.#accountBalance.deposit(transaction.getAmount());
-        transaction.setTransactionTypeAndBalance('credit', this.#accountBalance.getBalance());
+        transaction.setTransactionTypeAndBalance('credit', this.getBalance());
         this.addTransaction(transaction);
     }
 
     withdraw(transactionObject) {
         const transaction = transactionObject;
         this.#accountBalance.withdraw(transaction.getAmount());
-        transaction.setTransactionTypeAndBalance('debit', this.#accountBalance.getBalance());
+        transaction.setTransactionTypeAndBalance('debit', this.getBalance());
         this.addTransaction(transaction);
     }
 
