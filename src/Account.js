@@ -33,8 +33,6 @@ class Account {
         this.addTransaction(transaction);
     }
 
-
-
 }
 
 export default Account;

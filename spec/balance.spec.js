@@ -166,8 +166,7 @@ describe('Balance Test Suite', () => {
             const nullEntry = null;
 
             expect(() => { testBalance.validateEntry(nullEntry) }).toThrowError();
-        })
-    })
-
+        });
+    });
 
 });

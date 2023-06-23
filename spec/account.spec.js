@@ -367,14 +367,7 @@ describe('Tests for Accounts', () => {
 
             // ASSERT
             expect(testAccount.getTransactions().length).toBe(expected);
+        });
+    });
 
-
-
-
-
-        })
-
-
-
-    })
 });

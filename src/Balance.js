@@ -25,7 +25,6 @@ class Balance {
         if (isNaN(entryToValidate) || entryToValidate === null) throw new Error('Please enter a valid number');
     }
 
-
 }
 
 export default Balance;
