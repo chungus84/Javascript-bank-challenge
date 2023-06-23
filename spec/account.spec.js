@@ -213,6 +213,7 @@ describe('Tests for Accounts', () => {
             #date;
             #amount;
             #transactionType;
+            #balance = 0;
 
             constructor(date, amount, transactionType = '') {
                 this.#date = date;
@@ -231,8 +232,9 @@ describe('Tests for Accounts', () => {
                     transactionType: this.#transactionType,
                 }
             }
-            setTransactionType(transactionToAdd) {
+            setTransactionTypeAndBalance(transactionToAdd, balance) {
                 this.#transactionType = transactionToAdd;
+                this.#balance = balance;
             }
         }
 

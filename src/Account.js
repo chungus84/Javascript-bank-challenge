@@ -29,7 +29,7 @@ class Account {
     withdraw(transactionObject) {
         const transaction = transactionObject;
         this.#accountBalance.withdraw(transaction.getAmount());
-        transaction.setTransactionType('debit');
+        transaction.setTransactionTypeAndBalance('debit', this.#accountBalance.getBalance());
         this.addTransaction(transaction);
     }
 
