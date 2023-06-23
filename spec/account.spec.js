@@ -268,6 +268,19 @@ describe('Tests for Accounts', () => {
             expect(testAccount.getBalance()).toBe(expected);
         });
 
+        it('should addTransaction is called when withdraw is called and adds to accountTransactions array', () => {
+            const testDate = '12/12/2022';
+            const amountToWithdraw = 50;
+            const testTransaction = new MockTransaction(testDate, amountToWithdraw);
+            const expected = 1;
+
+            // ACT
+            testAccount.withdraw(testTransaction);
+
+            // ASSERT
+            expect(testAccount.getTransactions().length).toBe(expected);
+        })
+
     });
 
     describe('Account Transaction Tests', () => {
