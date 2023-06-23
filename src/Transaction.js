@@ -2,6 +2,7 @@ class Transaction {
     #date;
     #amount;
     #transactionType;
+    #balance = 0;
     constructor(date, amount, transactionType = '') {
         this.#date = date;
         this.#transactionType = transactionType;
@@ -17,11 +18,13 @@ class Transaction {
             date: this.#date,
             amount: this.#amount,
             transactionType: this.#transactionType,
+            balance: this.#balance,
         }
     }
 
-    setTransactionType(transactionToAdd) {
+    setTransactionTypeAndBalance(transactionToAdd, balance) {
         this.#transactionType = transactionToAdd;
+        this.#balance = balance
     }
 }
 

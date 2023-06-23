@@ -4,6 +4,19 @@ describe('Transaction Tests', () => {
 
     let testTransaction;
 
+    class MockBalance {
+
+        #balance;
+
+        constructor(newBalance = 0) {
+            this.#balance = newBalance;
+        }
+
+        getBalance() {
+            return this.#balance;
+        }
+    }
+
     afterEach(() => {
         testTransaction = undefined;
     })
@@ -56,6 +69,7 @@ describe('Transaction Tests', () => {
             date: transactionDate,
             amount: amount,
             transactionType: transactionType,
+            balance: 0,
         }
 
         // ACT
@@ -66,17 +80,19 @@ describe('Transaction Tests', () => {
 
     });
 
-    it('setTransactionType should set the transactionType', () => {
+    it('setTransactionTypeAndBalance should set the transactionType', () => {
 
         // ARRANGE
         const amount = 60;
         const transactionDate = '10/10/2010';
+        const testBalance = new MockBalance(100);
         testTransaction = new Transaction(transactionDate, amount);
-        const expected = new Transaction(transactionDate, amount, 'credit');
+        const expected = new Transaction(transactionDate, amount, 'credit', 100);
         const transactionType = 'credit'
 
         // ACT
-        testTransaction.setTransactionType(transactionType);
+        testTransaction.setTransactionTypeAndBalance(transactionType, testBalance.getBalance());
+
 
         // ASSERT
         expect(testTransaction).toEqual(expected)
