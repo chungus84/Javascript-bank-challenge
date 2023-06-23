@@ -12,7 +12,7 @@ describe('Transaction Tests', () => {
 
         // ARRANGE
         const amount = 50;
-        const transactionType = 'deposit';
+        const transactionType = 'credit';
         const transactionDate = '10/10/2010';
 
         // ACT
@@ -28,7 +28,7 @@ describe('Transaction Tests', () => {
 
         // ARRANGE
         const amount = 50;
-        const transactionType = 'deposit';
+        const transactionType = 'credit';
         const transactionDate = '10/10/2010';
         testTransaction = new Transaction(transactionDate, amount, transactionType);
         const expected = {
@@ -49,7 +49,7 @@ describe('Transaction Tests', () => {
     it('getFullTransaction should return all fields in an object', () => {
         // ARRANGE
         const amount = 50;
-        const transactionType = 'deposit';
+        const transactionType = 'credit';
         const transactionDate = '10/10/2010';
         testTransaction = new Transaction(transactionDate, amount, transactionType);
         const expected = {
@@ -72,8 +72,8 @@ describe('Transaction Tests', () => {
         const amount = 60;
         const transactionDate = '10/10/2010';
         testTransaction = new Transaction(transactionDate, amount);
-        const expected = new Transaction(transactionDate, amount, 'deposit');
-        const transactionType = 'deposit'
+        const expected = new Transaction(transactionDate, amount, 'credit');
+        const transactionType = 'credit'
 
         // ACT
         testTransaction.setTransactionType(transactionType);

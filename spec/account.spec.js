@@ -124,7 +124,7 @@ describe('Tests for Accounts', () => {
 
             // ARRANGE
             const testDate = '12/12/2022';
-            const testType = 'deposit'
+            const testType = 'credit'
             const amountToDeposit = 100;
             const testTransaction = new MockTransaction(testDate, amountToDeposit, testType);
             const balanceSpy = spyOn(testBalance, 'deposit');
@@ -140,7 +140,7 @@ describe('Tests for Accounts', () => {
 
             // ARRANGE
             const testDate = '12/12/2022';
-            const testType = 'deposit'
+            const testType = 'credit'
             const amountToDeposit = 100;
             const testTransaction = new MockTransaction(testDate, amountToDeposit, testType);
             const expected = 110;
@@ -154,7 +154,7 @@ describe('Tests for Accounts', () => {
         it('should convert a string that contains a parsable number e.g "100" into an int when called from Account class instance', () => {
             // ARRANGE
             const testDate = '12/12/2022';
-            const testType = 'deposit'
+            const testType = 'credit'
             const amountToDeposit = '100';
             const testTransaction = new MockTransaction(testDate, amountToDeposit, testType);
             const expected = 110;
@@ -167,7 +167,7 @@ describe('Tests for Accounts', () => {
         it('should throw an error if string isNaN()', () => {
             // ARRANGE
             const testDate = '12/12/2022';
-            const testType = 'deposit'
+            const testType = 'credit'
             const amountToDeposit = 'hello';
             const testTransaction = new MockTransaction(testDate, amountToDeposit, testType);
             // ACT
@@ -178,7 +178,7 @@ describe('Tests for Accounts', () => {
         it('should addTransaction is called when deposit is called and adds to accountTransactions array', () => {
             // ARRANGE
             const testDate = '12/12/2022';
-            const testType = 'deposit'
+            const testType = 'credit'
             const amountToDeposit = 100;
             const testTransaction = new MockTransaction(testDate, amountToDeposit, testType);
             const expected = 1;
@@ -325,7 +325,7 @@ describe('Tests for Accounts', () => {
 
             // ARRANGE
             const dateToTest = '12/11/2022'
-            const transactionType = 'deposit'
+            const transactionType = 'credit'
             const amountToDeposit = 50;
             const testTransaction = new MockTransaction(dateToTest, amountToDeposit, transactionType)
             // ACT
@@ -340,7 +340,7 @@ describe('Tests for Accounts', () => {
 
             // ARRANGE
             const dateToTest = '12/11/2022'
-            const transactionType = 'deposit'
+            const transactionType = 'credit'
             const amountToDeposit = 50;
             const testTransaction = new MockTransaction(dateToTest, amountToDeposit, transactionType)
             // ACT
@@ -354,9 +354,9 @@ describe('Tests for Accounts', () => {
 
             // ARRANGE
             const transactionArray = [
-                new MockTransaction('13/12/2022', 50, 'deposit'),
+                new MockTransaction('13/12/2022', 50, 'credit'),
                 new MockTransaction('14/12/2022', 100),
-                new MockTransaction('13/12/2022', 70, 'deposit'),
+                new MockTransaction('13/12/2022', 70, 'debit'),
             ]
             const expected = 3
 
