@@ -26,8 +26,11 @@ class Account {
         this.addTransaction(transaction);
     }
 
-    withdraw(amountToWithdraw) {
-        this.#accountBalance.withdraw(amountToWithdraw);
+    withdraw(transactionObject) {
+        const transaction = transactionObject;
+        this.#accountBalance.withdraw(transaction.getAmount());
+        transaction.setTransactionType('withdraw');
+        this.addTransaction(transaction);
     }
 
 

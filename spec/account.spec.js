@@ -209,8 +209,9 @@ describe('Tests for Accounts', () => {
 
         class MockTransaction {
             #date;
-            #transactionType;
             #amount;
+            #transactionType;
+
             constructor(date, amount, transactionType = '') {
                 this.#date = date;
                 this.#amount = amount;
@@ -221,6 +222,16 @@ describe('Tests for Accounts', () => {
                 return this.#amount;
             }
 
+            getFullTransaction() {
+                return {
+                    date: this.#date,
+                    amount: this.#amount,
+                    transactionType: this.#transactionType,
+                }
+            }
+            setTransactionType(transactionToAdd) {
+                this.#transactionType = transactionToAdd;
+            }
         }
 
         beforeEach(() => {
@@ -234,21 +245,25 @@ describe('Tests for Accounts', () => {
         })
         it('should call withdraw in Account class instance', () => {
             // ARRANGE
+            const testDate = '12/12/2022';
             const amountToWithdraw = 50;
             const balanceSpy = spyOn(testBalance, 'withdraw');
+            const testTransaction = new MockTransaction(testDate, amountToWithdraw);
 
             // ACT
-            testAccount.withdraw(amountToWithdraw);
+            testAccount.withdraw(testTransaction);
             // ASSERT
             expect(balanceSpy).toHaveBeenCalledWith(amountToWithdraw);
         })
 
         it('should call withdraw from balance and remove 50 from balance', () => {
             // ARRANGE
+            const testDate = '12/12/2022';
             const expected = 50;
             const amountToWithdraw = 50;
+            const testTransaction = new MockTransaction(testDate, amountToWithdraw);
             // ACT
-            testAccount.withdraw(amountToWithdraw);
+            testAccount.withdraw(testTransaction);
             // ASSERT
             expect(testAccount.getBalance()).toBe(expected);
         });
