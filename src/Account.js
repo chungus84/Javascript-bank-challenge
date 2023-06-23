@@ -22,7 +22,7 @@ class Account {
     deposit(transactionObject) {
         const transaction = transactionObject;
         this.#accountBalance.deposit(transaction.getAmount());
-        transaction.setTransactionType('credit');
+        transaction.setTransactionTypeAndBalance('credit', this.#accountBalance.getBalance());
         this.addTransaction(transaction);
     }
 
