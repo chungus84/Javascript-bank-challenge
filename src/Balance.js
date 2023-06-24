@@ -3,7 +3,7 @@ class Balance {
     #balance;
 
     constructor(newBalance = 0) {
-        this.#balance = newBalance;
+        this.#balance = parseFloat(newBalance);
     }
 
     getBalance() {
@@ -12,13 +12,13 @@ class Balance {
 
     deposit(amountToAdd) {
         this.validateEntry(amountToAdd)
-        this.#balance += parseInt(amountToAdd);
+        this.#balance += parseFloat(amountToAdd);
     }
 
     withdraw(amountToWithdraw) {
         this.validateEntry(amountToWithdraw);
         if (amountToWithdraw > this.#balance) throw new Error('You do not have enough in your account');
-        this.#balance -= parseInt(amountToWithdraw);
+        this.#balance -= parseFloat(amountToWithdraw);
     }
 
     validateEntry(entryToValidate) {

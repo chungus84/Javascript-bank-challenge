@@ -77,7 +77,7 @@ describe('Tests for Accounts', () => {
             deposit = (amountToAdd) => {
 
                 if (isNaN(amountToAdd)) throw new Error('Please enter a valid number')
-                this.#balance += parseInt(amountToAdd);
+                this.#balance += parseFloat(amountToAdd);
             }
         }
 
@@ -348,7 +348,7 @@ describe('Tests for Accounts', () => {
 
             deposit = (amountToAdd) => {
                 if (isNaN(amountToAdd)) throw new Error('Please enter a valid number')
-                this.#balance += parseInt(amountToAdd);
+                this.#balance += parseFloat(amountToAdd);
             }
         }
 

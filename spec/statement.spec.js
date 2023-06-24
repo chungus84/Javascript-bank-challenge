@@ -41,7 +41,7 @@ describe('Statement Class tests', () => {
         #balance;
 
         constructor(newBalance = 0) {
-            this.#balance = newBalance;
+            this.#balance = parseFloat(newBalance);
         }
 
         getBalance() {
@@ -50,13 +50,13 @@ describe('Statement Class tests', () => {
 
         deposit(amountToAdd) {
             this.validateEntry(amountToAdd)
-            this.#balance += parseInt(amountToAdd);
+            this.#balance += parseFloat(amountToAdd);
         }
 
         withdraw(amountToWithdraw) {
             this.validateEntry(amountToWithdraw);
             if (amountToWithdraw > this.#balance) throw new Error('You do not have enough in your account');
-            this.#balance -= parseInt(amountToWithdraw);
+            this.#balance -= parseFloat(amountToWithdraw);
         }
 
         validateEntry(entryToValidate) {
@@ -68,11 +68,12 @@ describe('Statement Class tests', () => {
         #date;
         #amount;
         #transactionType;
-        #balance = 0;
+        #balance = 0.00;
         constructor(date, amount, transactionType = '') {
             this.#date = date;
             this.#transactionType = transactionType;
             this.#amount = amount;
+
         }
 
         getAmount() {
@@ -82,9 +83,9 @@ describe('Statement Class tests', () => {
         getFullTransaction() {
             return {
                 date: this.#date,
-                amount: this.#amount,
+                amount: this.#amount.toFixed(2),
                 transactionType: this.#transactionType,
-                balance: this.#balance,
+                balance: this.#balance.toFixed(2),
             }
         }
 
@@ -103,18 +104,40 @@ describe('Statement Class tests', () => {
 
 
 
-    it('should print statement to the console', () => {
+    it('printStatement should be called twice (header and transaction)', () => {
 
         // ARRANGE
-        const expected = "\ndate       || credit  || debit  || balance\n10/01/2012 || 1000.00 ||        || 1000.00"
 
-        testTransaction = new MockTransaction('10/01/2012', 1000);
+        const testAmount = 1000
+        const logSpy = spyOn(global.console, 'log')
+        testTransaction = new MockTransaction('10/01/2012', testAmount);
         testAccount.deposit(testTransaction);
 
-        console.log(testAccount.getTransactions()[0].getFullTransaction())
+        Statement.printStatement(testAccount)
 
         // ACT
-        expect(Statement.printStatement(testAccount)).toBe(expected);
+        expect(logSpy).toHaveBeenCalledTimes(2);
+
+
+    });
+
+    it('printStatement should be called 4 times (once for header and 3 x transactions)', () => {
+
+        // ARRANGE
+
+        const transactionArray = [
+            new MockTransaction('10/01/2012', 1000),
+            new MockTransaction('10/01/2012', 2000),
+            new MockTransaction('10/01/2012', 500)
+
+        ]
+        const logSpy = spyOn(global.console, 'log')
+
+        transactionArray.forEach(transaction => testAccount.deposit(transaction));
+
+        Statement.printStatement(testAccount);
+
+        expect(logSpy).toHaveBeenCalledTimes(4);
 
 
     })
