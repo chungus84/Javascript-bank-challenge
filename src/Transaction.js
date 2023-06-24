@@ -16,9 +16,9 @@ class Transaction {
     getFullTransaction() {
         return {
             date: this.#date,
-            amount: this.#amount,
+            amount: this.#amount.toFixed(2),
             transactionType: this.#transactionType,
-            balance: this.#balance,
+            balance: this.#balance.toFixed(2),
         }
     }
 

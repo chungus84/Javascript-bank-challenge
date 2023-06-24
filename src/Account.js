@@ -16,7 +16,7 @@ class Account {
     }
 
     addTransaction(transactionToAdd) {
-        this.#accountTransactions = [...this.#accountTransactions, transactionToAdd];
+        this.#accountTransactions = [transactionToAdd, ...this.#accountTransactions];
     }
 
     deposit(transactionObject) {
