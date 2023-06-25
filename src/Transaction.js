@@ -1,8 +1,10 @@
 class Transaction {
+
     #date;
     #amount;
     #transactionType;
     #balance = 0;
+
     constructor(date, amount, transactionType = '') {
         this.#date = date;
         this.#transactionType = transactionType;

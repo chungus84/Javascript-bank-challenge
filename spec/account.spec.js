@@ -205,12 +205,13 @@ describe('Tests for Accounts', () => {
 
 
             for (const transaction of transactionArray) {
+
                 newAccount.deposit(transaction);
             }
             const expected = 220;
 
             // ACT
-            const lastItem = newAccount.getTransactions().slice(-1)
+            const lastItem = newAccount.getTransactions().slice(0)
             const actual = lastItem[0].getFullTransaction().balance
 
             // ASSERT
@@ -326,7 +327,7 @@ describe('Tests for Accounts', () => {
             const expected = 100;
 
             // ACT
-            const lastItem = newAccount.getTransactions().slice(-1)
+            const lastItem = newAccount.getTransactions().slice(0)
             const actual = lastItem[0].getFullTransaction().balance
 
             // ASSERT

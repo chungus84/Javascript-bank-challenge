@@ -40,15 +40,11 @@ describe('Transaction Tests', () => {
     it('should return amount (50) from Transaction instance object', () => {
 
         // ARRANGE
-        const amount = 50;
+        const amount = 50
         const transactionType = 'credit';
         const transactionDate = '10/10/2010';
         testTransaction = new Transaction(transactionDate, amount, transactionType);
-        const expected = {
-            date: transactionDate,
-            transactionType: transactionType,
-            amount: amount
-        }
+
 
         //ACT
         const actual = testTransaction.getAmount();
@@ -67,9 +63,9 @@ describe('Transaction Tests', () => {
         testTransaction = new Transaction(transactionDate, amount, transactionType);
         const expected = {
             date: transactionDate,
-            amount: amount,
+            amount: amount.toFixed(2),
             transactionType: transactionType,
-            balance: 0,
+            balance: '0.00',
         }
 
         // ACT
