@@ -1,3 +1,4 @@
+import Account from "../src/Account.js";
 import Statement from "../src/Statement.js";
 
 describe('Statement Class tests', () => {
@@ -140,5 +141,38 @@ describe('Statement Class tests', () => {
         expect(logSpy).toHaveBeenCalledTimes(4);
 
 
+    })
+
+    it('statementFormatter should convert a single deposit into a line of text for the statement', () => {
+
+        // ARRANGE
+        const deposit1 = new MockTransaction('10/12/2022', 2000);
+
+        testAccount.deposit(deposit1);
+
+
+        const expected = "10/12/2022 || 2000.00 ||        || 2000.00";
+
+        const transactionDetails = testAccount.getTransactions();
+
+
+        expect(Statement.statementFormatter(transactionDetails[0].getFullTransaction())).toEqual(expected);
+
+    });
+
+    it('statementFormatter should convert a single withdrawal into a line of text for the statement', () => {
+        // ARRANGE
+        const withdrawal = new MockTransaction('10/12/2022', 1000);
+        const newBalance = new MockAccount(new MockBalance(2000))
+
+        newBalance.withdraw(withdrawal);
+
+
+        const expected = "10/12/2022 ||         || 1000.00 || 1000.00";
+
+        const transactionDetails = newBalance.getTransactions();
+
+
+        expect(Statement.statementFormatter(transactionDetails[0].getFullTransaction())).toEqual(expected);
     })
 })

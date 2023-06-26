@@ -129,10 +129,10 @@ describe('Tests for Accounts', () => {
             const amountToDeposit = 100;
             const testTransaction = new MockTransaction(testDate, amountToDeposit, testType);
             const balanceSpy = spyOn(testBalance, 'deposit');
-            // console.log(testTransaction.getFullTransaction().amount);
 
             // ACT
             testAccount.deposit(testTransaction);
+
             // ASSERT
             expect(balanceSpy).toHaveBeenCalledWith(amountToDeposit);
         });
@@ -420,12 +420,9 @@ describe('Tests for Accounts', () => {
                 testAccount.addTransaction(transaction);
             }
 
-
-
             // ASSERT
             expect(testAccount.getTransactions().length).toBe(expected);
         });
-
 
     });
 
