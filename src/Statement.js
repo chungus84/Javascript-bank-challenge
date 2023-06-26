@@ -16,7 +16,7 @@ class Statement {
 
     static statementFormatter(detail) {
         const emptyString = '       ';
-        return `${detail.date} || ${detail.transactionType === 'credit' ? detail.amount + " ||" + emptyString : emptyString + " || " + detail.amount} || ${detail.balance}`
+        return `${detail.date} || ${detail.transactionType === 'credit' ? chalk.green(detail.amount) + " ||" + emptyString : emptyString + " || " + chalk.red(detail.amount)} || ${detail.balance}`
         // statementArray = [...statementArray, statementEntry]
         // return statementArray
 

@@ -1,5 +1,6 @@
 import Account from "../src/Account.js";
 import Statement from "../src/Statement.js";
+import chalk from 'chalk'
 
 describe('Statement Class tests', () => {
 
@@ -143,7 +144,7 @@ describe('Statement Class tests', () => {
 
     })
 
-    it('statementFormatter should convert a single deposit into a line of text for the statement', () => {
+    it('statementFormatter show up as green in the credit column and format the row as expected', () => {
 
         // ARRANGE
         const deposit1 = new MockTransaction('10/12/2022', 2000);
@@ -151,7 +152,7 @@ describe('Statement Class tests', () => {
         testAccount.deposit(deposit1);
 
 
-        const expected = "10/12/2022 || 2000.00 ||        || 2000.00";
+        const expected = `10/12/2022 || ${chalk.green('2000.00')} ||        || 2000.00`;
 
         const transactionDetails = testAccount.getTransactions();
 
@@ -160,7 +161,7 @@ describe('Statement Class tests', () => {
 
     });
 
-    it('statementFormatter should convert a single withdrawal into a line of text for the statement', () => {
+    it('statementFormatter should show up as red in the debit column and format the row', () => {
         // ARRANGE
         const withdrawal = new MockTransaction('10/12/2022', 1000);
         const newBalance = new MockAccount(new MockBalance(2000))
@@ -168,7 +169,7 @@ describe('Statement Class tests', () => {
         newBalance.withdraw(withdrawal);
 
 
-        const expected = "10/12/2022 ||         || 1000.00 || 1000.00";
+        const expected = `10/12/2022 ||         || ${chalk.red('1000.00')} || 1000.00`;
 
         const transactionDetails = newBalance.getTransactions();
 
