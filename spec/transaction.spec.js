@@ -76,19 +76,18 @@ describe('Transaction Tests', () => {
 
     });
 
-    it('setTransactionTypeAndBalance should set the transactionType', () => {
+    it('setTransactionBalance should set the balance of testTransaction to 100.00', () => {
 
         // ARRANGE
-        const amount = 60;
+        const amount = 0;
         const transactionDate = '10/10/2010';
         const testBalance = new MockBalance(100);
-        testTransaction = new Transaction(transactionDate, amount);
-        const expected = new Transaction(transactionDate, amount, 'credit', 100);
-        const transactionType = 'credit'
+        const testType = 'credit'
+        testTransaction = new Transaction(transactionDate, amount, testType);
+        const expected = new Transaction(transactionDate, amount, testType, 100);
 
         // ACT
-        testTransaction.setTransactionTypeAndBalance(transactionType, testBalance.getBalance());
-
+        testTransaction.setTransactionBalance(testBalance.getBalance());
 
         // ASSERT
         expect(testTransaction).toEqual(expected)

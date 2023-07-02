@@ -5,13 +5,11 @@ class Transaction {
     #transactionType;
     #balance = 0;
 
-
-    constructor(date, amount, transactionType = '') {
+    constructor(date, amount, transactionType) {
         this.#date = new Date(date);
         this.#transactionType = transactionType;
         this.#amount = amount;
     }
-
 
     getAmount() {
         return this.#amount;
@@ -20,7 +18,6 @@ class Transaction {
     getTransactionType() {
         return this.#transactionType;
     }
-
 
     getFullTransaction() {
         return {
@@ -31,8 +28,7 @@ class Transaction {
         }
     }
 
-    setTransactionTypeAndBalance(transactionToAdd, balance) {
-        this.#transactionType = transactionToAdd;
+    setTransactionBalance(balance) {
         this.#balance = balance
     }
 }

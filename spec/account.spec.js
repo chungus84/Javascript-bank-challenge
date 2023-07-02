@@ -169,9 +169,9 @@ describe('Tests for Accounts', () => {
             constructor(amount = 0) {
                 this.#balance = amount
             }
-            getBalance = () => { return this.#balance }
+            getBalance() { return this.#balance }
 
-            withdraw = amountToWithdraw => this.#balance -= amountToWithdraw;
+            makeTransaction(transactionType, amountToWithdraw) { };
         }
 
         class MockTransaction {
@@ -185,6 +185,9 @@ describe('Tests for Accounts', () => {
                 this.#amount = amount;
                 this.#transactionType = transactionType;
 
+            }
+            getTransactionType() {
+                return 'debit';
             }
 
             getDate() {
@@ -202,8 +205,7 @@ describe('Tests for Accounts', () => {
                     balance: this.#balance,
                 }
             }
-            setTransactionTypeAndBalance(transactionToAdd, balance) {
-                this.#transactionType = transactionToAdd;
+            setTransactionBalance(balance) {
                 this.#balance = balance;
             }
         }
@@ -217,39 +219,29 @@ describe('Tests for Accounts', () => {
             testBalance = undefined;
             testAccount = undefined;
         })
-        it('should call withdraw in Account class instance', () => {
+        it('should call makeTransaction should be called with the testTransaction ', () => {
             // ARRANGE
             const testDate = '2022-12-12';
             const amountToWithdraw = 50;
-            const balanceSpy = spyOn(testBalance, 'withdraw');
-            const testTransaction = new MockTransaction(testDate, amountToWithdraw);
+            const testType = 'debit'
+            const balanceSpy = spyOn(testBalance, 'makeTransaction');
+            const testTransaction = new MockTransaction(testDate, amountToWithdraw, testType);
 
             // ACT
-            testAccount.withdraw(testTransaction);
+            testAccount.makeTransaction(testTransaction);
             // ASSERT
-            expect(balanceSpy).toHaveBeenCalledWith(amountToWithdraw);
+            expect(balanceSpy).toHaveBeenCalledWith(testType, amountToWithdraw);
         })
-
-        it('should call withdraw from balance and remove 50 from balance', () => {
-            // ARRANGE
-            const testDate = '2022-12-12';
-            const expected = 50;
-            const amountToWithdraw = 50;
-            const testTransaction = new MockTransaction(testDate, amountToWithdraw);
-            // ACT
-            testAccount.withdraw(testTransaction);
-            // ASSERT
-            expect(testAccount.getBalance()).toBe(expected);
-        });
 
         it('should addTransaction is called when withdraw is called and adds to accountTransactions array', () => {
             const testDate = '2022-12-12';
             const amountToWithdraw = 50;
-            const testTransaction = new MockTransaction(testDate, amountToWithdraw);
+            const testType = 'debit'
+            const testTransaction = new MockTransaction(testDate, amountToWithdraw, testType);
             const expected = 1;
 
             // ACT
-            testAccount.withdraw(testTransaction);
+            testAccount.makeTransaction(testTransaction);
 
             // ASSERT
             expect(testAccount.getTransactions().length).toBe(expected);
@@ -259,25 +251,22 @@ describe('Tests for Accounts', () => {
 
             // ARRANGE
             const transactionArray = [
-                new MockTransaction('13/12/2022', 50),
-                new MockTransaction('14/12/2022', 20),
-                new MockTransaction('13/12/2022', 30),
+                new MockTransaction('13/12/2022', 50, `debit`),
+                new MockTransaction('14/12/2022', 100, `debit`),
+                new MockTransaction('13/12/2022', 70, `debit`),
             ]
-
-            const newAccount = new Account(new MockBalance(200));
-
-
-            for (const transaction of transactionArray) {
-                newAccount.withdraw(transaction);
-            }
-            const expected = 100;
-
+            const newBalance = new MockBalance(0);
+            const newAccount = new Account(newBalance);
+            const balanceSpy = spyOn(newBalance, 'makeTransaction')
+            const expected = 3;
             // ACT
-            const lastItem = newAccount.getTransactions().slice(0)
-            const actual = lastItem[0].getFullTransaction().balance
+            for (const transaction of transactionArray) {
+
+                newAccount.makeTransaction(transaction);
+            }
 
             // ASSERT
-            expect(actual).toBe(expected);
+            expect(balanceSpy).toHaveBeenCalledTimes(expected);
 
         });
 
@@ -359,9 +348,9 @@ describe('Tests for Accounts', () => {
 
             // ARRANGE
             const transactionArray = [
-                new MockTransaction('13/12/2022', 50, 'credit'),
-                new MockTransaction('14/12/2022', 100),
-                new MockTransaction('13/12/2022', 70, 'debit'),
+                new MockTransaction('2022-11-12', 50, 'credit'),
+                new MockTransaction('2022-11-13', 100, 'credit'),
+                new MockTransaction('2022-11-14', 70, 'debit'),
             ]
             const expected = 3
 

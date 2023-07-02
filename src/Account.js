@@ -26,20 +26,6 @@ class Account {
         this.addTransaction(transaction);
     }
 
-    deposit(transactionObject) {
-        const transaction = transactionObject;
-        this.#accountBalance.deposit(transaction.getAmount());
-        transaction.setTransactionTypeAndBalance('credit', this.getBalance());
-        this.addTransaction(transaction);
-    }
-
-    withdraw(transactionObject) {
-        const transaction = transactionObject;
-        this.#accountBalance.withdraw(transaction.getAmount());
-        transaction.setTransactionTypeAndBalance('debit', this.getBalance());
-        this.addTransaction(transaction);
-    }
-
 }
 
 export default Account;

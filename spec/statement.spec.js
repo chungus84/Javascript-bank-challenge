@@ -1,4 +1,3 @@
-import Account from "../src/Account.js";
 import Statement from "../src/Statement.js";
 import chalk from 'chalk'
 
@@ -12,31 +11,14 @@ describe('Statement Class tests', () => {
             this.#accountBalance = balanceObject;
         }
 
-        getBalance() {
-            return this.#accountBalance.getBalance();
+        makeTransaction(transactionObject) {
+            this.#accountBalance.makeTransaction(transactionObject)
+            this.#accountTransactions = [transactionObject, ...this.#accountTransactions];
         }
-
         getTransactions() {
             return this.#accountTransactions;
         }
 
-        addTransaction(transactionToAdd) {
-            this.#accountTransactions = [...this.#accountTransactions, transactionToAdd];
-        }
-
-        deposit(transactionObject) {
-            const transaction = transactionObject;
-            this.#accountBalance.deposit(transaction.getAmount());
-            transaction.setTransactionTypeAndBalance('credit', this.getBalance());
-            this.addTransaction(transaction);
-        }
-
-        withdraw(transactionObject) {
-            const transaction = transactionObject;
-            this.#accountBalance.withdraw(transaction.getAmount());
-            transaction.setTransactionTypeAndBalance('debit', this.getBalance());
-            this.addTransaction(transaction);
-        }
     }
 
     class MockBalance {
@@ -46,24 +28,12 @@ describe('Statement Class tests', () => {
             this.#balance = parseFloat(newBalance);
         }
 
-        getBalance() {
-            return this.#balance;
+        makeTransaction(transactionType, amount) {
+            if (transactionType === `credit`) {
+                this.#balance += amount
+            } else { this.#balance -= amount };
         }
 
-        deposit(amountToAdd) {
-            this.validateEntry(amountToAdd)
-            this.#balance += parseFloat(amountToAdd);
-        }
-
-        withdraw(amountToWithdraw) {
-            this.validateEntry(amountToWithdraw);
-            if (amountToWithdraw > this.#balance) throw new Error('You do not have enough in your account');
-            this.#balance -= parseFloat(amountToWithdraw);
-        }
-
-        validateEntry(entryToValidate) {
-            if (isNaN(entryToValidate) || entryToValidate === null) throw new Error('Please enter a valid number');
-        }
     }
 
     class MockTransaction {
@@ -72,28 +42,19 @@ describe('Statement Class tests', () => {
         #transactionType;
         #balance = 0.00;
         constructor(date, amount, transactionType = '') {
-            this.#date = date;
+            this.#date = new Date(date);
             this.#transactionType = transactionType;
             this.#amount = amount;
 
         }
 
-        getAmount() {
-            return this.#amount;
-        }
-
         getFullTransaction() {
             return {
-                date: this.#date,
+                date: this.#date.toLocaleDateString('en-GB'),
                 amount: this.#amount.toFixed(2),
                 transactionType: this.#transactionType,
                 balance: this.#balance.toFixed(2),
             }
-        }
-
-        setTransactionTypeAndBalance(transactionToAdd, balance) {
-            this.#transactionType = transactionToAdd;
-            this.#balance = balance
         }
     }
 
@@ -111,9 +72,10 @@ describe('Statement Class tests', () => {
         // ARRANGE
 
         const testAmount = 1000
+        const testType = 'credit'
         const logSpy = spyOn(global.console, 'log')
-        testTransaction = new MockTransaction('10/01/2012', testAmount);
-        testAccount.deposit(testTransaction);
+        testTransaction = new MockTransaction('2012-01-10', testAmount, testType);
+        testAccount.makeTransaction(testTransaction);
 
         Statement.printStatement(testAccount)
 
@@ -128,14 +90,14 @@ describe('Statement Class tests', () => {
         // ARRANGE
 
         const transactionArray = [
-            new MockTransaction('10/01/2012', 1000),
-            new MockTransaction('10/01/2012', 2000),
-            new MockTransaction('10/01/2012', 500)
+            new MockTransaction('2012-01-10', 1000, 'credit'),
+            new MockTransaction('2012-01-10', 2000, 'credit'),
+            new MockTransaction('2012-01-10', 500, 'credit'),
 
         ]
         const logSpy = spyOn(global.console, 'log')
 
-        transactionArray.forEach(transaction => testAccount.deposit(transaction));
+        transactionArray.forEach(transaction => testAccount.makeTransaction(transaction));
 
         Statement.printStatement(testAccount);
 
@@ -147,12 +109,12 @@ describe('Statement Class tests', () => {
     it('statementFormatter should space the padding consistently for each deposit in a statement row', () => {
 
         // ARRANGE
-        const deposit1 = new MockTransaction('10/12/2022', 2000);
+        const deposit1 = new MockTransaction(`2022-12-10`, 2000, `credit`);
 
-        testAccount.deposit(deposit1);
+        testAccount.makeTransaction(deposit1);
 
 
-        const expected = `10/12/2022 || ${chalk.green('2000.00')} ||         || 2000.00`;
+        const expected = `10/12/2022 || ${chalk.green('2000.00')} ||         || 0.00`;
 
         const transactionDetails = testAccount.getTransactions();
 
@@ -163,13 +125,13 @@ describe('Statement Class tests', () => {
 
     it('statementFormatter should space the padding consistently for each withdrawal in a statement row', () => {
         // ARRANGE
-        const withdrawal = new MockTransaction('10/12/2022', 1000);
+        const withdrawal = new MockTransaction(`2022-12-10`, 1000, `debit`);
         const newBalance = new MockAccount(new MockBalance(2000))
 
-        newBalance.withdraw(withdrawal);
+        newBalance.makeTransaction(withdrawal);
 
 
-        const expected = `10/12/2022 ||         || ${chalk.red('1000.00')} || 1000.00`;
+        const expected = `10/12/2022 ||         || ${chalk.red('1000.00')} || 0.00`;
 
         const transactionDetails = newBalance.getTransactions();
 
