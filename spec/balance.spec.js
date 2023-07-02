@@ -80,8 +80,9 @@ describe('Balance Test Suite', () => {
         });
         it('should throw an error if number is less than 0 (-1)', () => {
             const lessThanZeroAmount = -1;
+            const transactionType = `credit`
 
-            expect(() => { testBalance.makeTransaction(lessThanZeroAmount) }).toThrowError();
+            expect(() => { testBalance.makeTransaction(transactionType, lessThanZeroAmount) }).toThrowError();
 
         })
 

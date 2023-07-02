@@ -38,7 +38,7 @@ import Statement from "./Statement.js";
 
 const oneMoreBalance = new Balance(49);
 try {
-    oneMoreBalance.makeTransaction('debit', 50);
+    oneMoreBalance.makeTransaction('debit', null);
 } catch (error) {
     console.log(error.message);
 }

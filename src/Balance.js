@@ -19,7 +19,7 @@ class Balance {
     }
 
     validateEntry(entryToValidate) {
-        if (isNaN(entryToValidate) || entryToValidate === null) { throw new Error('Please enter a valid number') };
+        if (isNaN(entryToValidate) || entryToValidate === null || entryToValidate < 0) { throw new Error('Please enter a valid number') };
     }
 
 }
