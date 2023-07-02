@@ -4,6 +4,24 @@ This challenge helps you practice your OO design skills.
 
 You'll work alone, and you'll also review your own code so you can practice reflecting on and improving your own work.
 
+### My Approach to the bank challenge
+I have designed my solution to ensure that my classes are loosely coupled but highly cohesive and they are all self-encapsulated.  My 4 classes are as follows:
+
+Account:  The class the user will be interacting with the most, requires a balance object on instantiation and also has a accountTransaction array which will hold a Transaction object for each transaction for the account.
+
+Balance: Responsible for the handling the current balance of an account as well as validation and errors
+
+Transaction: To handle the data structure of each transaction made to be stored in the accountTransaction array on the account object.
+
+Statement: Holds 2 static methods which will format and print the accounts' statement.
+
+Domain Models are further down.
+
+### Instructions
+- On installation run npm install to install dependencies
+- To run tests run npm test in the terminal
+- To run the app run node src/index.js
+
 ## Specification
 
 ### Requirements
@@ -37,8 +55,7 @@ date       || credit  || debit  || balance
 - [ ] Encapsulates Statement formatting in a class
 - [ ] Encapsulates Transaction data in a class
 
-#### Extended
-- [ ] Can you format the console output?  Credited values should be GREEN and debited values should be RED.  The balance should be GREEN if positive and RED if negative
+
 
 #### User Stories & Domain Models Standard
 ```
@@ -114,6 +131,10 @@ To show my account activity.
 |  Statement      | statementHeader @String           | printStatement()     | @String  |
 |                 |                                   | statementFormatter() | @String  |
 ```
+
+#### Extended
+- [ ] Can you format the console output?  Credited values should be GREEN and debited values should be RED.  The balance should be GREEN if positive and RED if negative
+
 #### Extended user stories and domain models
 ```
 As a user,
