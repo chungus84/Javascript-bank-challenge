@@ -173,9 +173,6 @@ describe('Statement Class tests', () => {
 
         const transactionDetails = newBalance.getTransactions();
 
-        console.log(transactionDetails[0].getFullTransaction());
-
-
         expect(Statement.statementFormatter(transactionDetails[0].getFullTransaction())).toEqual(expected);
     })
 })

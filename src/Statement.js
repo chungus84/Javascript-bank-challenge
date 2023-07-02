@@ -19,9 +19,6 @@ class Statement {
         }
         return `${detail.date} || ${chalk.green(detail.amount.padEnd(7))} || ${emptyString.padEnd(7)} || ${detail.balance}`;
     }
-
-
-    // console.log(`${trans.date} || ${ chalk.green(trans.transactionType === 'credit' ? trans.amount : ' ') } || ${ chalk.red(trans.transactionType === 'debit' ? trans.amount : ' ') } || ${ trans.balance } `);
 }
 
 export default Statement;

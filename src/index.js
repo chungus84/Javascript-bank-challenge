@@ -3,34 +3,44 @@ import Balance from "./Balance.js";
 import Transaction from "./Transaction.js";
 import Statement from "./Statement.js";
 
-const transactionArray = [
-    new Transaction('2012-01-10', 1000),
-    new Transaction('2012-01-13', 2000),
-]
+// const transactionArray = [
+//     new Transaction('2012-01-10', 1000, `credit`),
+//     new Transaction('2012-01-13', 2000, `credit`),
+// ]
 
-const transactionWithdraw = new Transaction('2012-01-14', 500);
+// const transactionWithdraw = new Transaction('2012-01-14', 500, `credit`);
 
-const newAccount = new Account(new Balance(0));
+// const newAccount = new Account(new Balance(0));
 
-transactionArray.forEach(transaction => newAccount.deposit(transaction));
-newAccount.withdraw(transactionWithdraw);
+// transactionArray.forEach(transaction => newAccount.makeTransaction(transaction));
+// newAccount.makeTransaction(transactionWithdraw);
 
-Statement.printStatement(newAccount);
-
-
-const anotherAccount = new Account(new Balance(0));
-
-const deposit1 = new Transaction('2023-02-01', 3000);
-const deposit2 = new Transaction('2023-02-03', 200);
-const withdrawal = new Transaction('2023-02-04', 500);
-
-anotherAccount.deposit(deposit1)
-anotherAccount.deposit(deposit2)
-anotherAccount.withdraw(withdrawal);
-
-const accountTransaction = anotherAccount.getTransactions()
+// Statement.printStatement(newAccount);
 
 
+// const anotherAccount = new Account(new Balance(0));
 
 
-Statement.printStatement(anotherAccount);
+// const deposit1 = new Transaction('2023-02-01', 3000, `credit`);
+// const deposit2 = new Transaction('2023-02-03', -200, `credit`);
+// const withdrawal = new Transaction('2023-02-04', 500, `credit`);
+
+// anotherAccount.makeTransaction(deposit1)
+// anotherAccount.makeTransaction(deposit2)
+// anotherAccount.makeTransaction(withdrawal);
+
+// const accountTransaction = anotherAccount.getTransactions()
+
+
+
+
+// Statement.printStatement(anotherAccount);
+
+const oneMoreBalance = new Balance(49);
+try {
+    oneMoreBalance.makeTransaction('debit', 50);
+} catch (error) {
+    console.log(error.message);
+}
+
+console.log(oneMoreBalance.getBalance());

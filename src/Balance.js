@@ -10,19 +10,16 @@ class Balance {
         return this.#balance;
     }
 
-    deposit(amountToAdd) {
-        this.validateEntry(amountToAdd)
-        this.#balance += parseFloat(amountToAdd);
-    }
-
-    withdraw(amountToWithdraw) {
-        this.validateEntry(amountToWithdraw);
-        if (amountToWithdraw > this.#balance) throw new Error('You do not have enough in your account');
-        this.#balance -= parseFloat(amountToWithdraw);
+    makeTransaction(transactionType, amount) {
+        this.validateEntry(amount)
+        if (transactionType === 'debit') {
+            if (amount > this.#balance) throw new Error('You do not have enough in your account')
+            this.#balance -= parseFloat(amount);
+        } else { this.#balance += parseFloat(amount); }
     }
 
     validateEntry(entryToValidate) {
-        if (isNaN(entryToValidate) || entryToValidate === null) throw new Error('Please enter a valid number');
+        if (isNaN(entryToValidate) || entryToValidate === null) { throw new Error('Please enter a valid number') };
     }
 
 }
