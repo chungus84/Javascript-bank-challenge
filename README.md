@@ -18,9 +18,9 @@ Statement: Holds 2 static methods which will format and print the accounts' stat
 Domain Models are further down.
 
 ### Instructions
-- On installation run npm install to install dependencies
-- To run tests run npm test in the terminal
-- To run the app run node src/index.js
+- On installation run `npm install` to install dependencies.
+- To run tests run `npm test` or `jasmine` in the terminal.
+- To run the app run `node src/index.js`.
 
 ## Specification
 
