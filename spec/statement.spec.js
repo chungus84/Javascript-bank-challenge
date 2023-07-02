@@ -12,7 +12,7 @@ describe('Statement Class tests', () => {
         }
 
         makeTransaction(transactionObject) {
-            this.#accountBalance.makeTransaction(transactionObject)
+
             this.#accountTransactions = [transactionObject, ...this.#accountTransactions];
         }
         getTransactions() {
