@@ -18,7 +18,7 @@ describe(`Balance Test Suite`, () => {
         });
     });
 
-    describe(`makeTransaction Tests`, () => {
+    describe(`makeTransaction credit tests`, () => {
 
         beforeEach(() => {
             testBalance = new Balance(10);
@@ -105,7 +105,7 @@ describe(`Balance Test Suite`, () => {
 
     });
 
-    describe(`withdraw tests`, () => {
+    describe(`makeTransaction debit tests`, () => {
 
         beforeEach(() => {
             testBalance = new Balance(100);
@@ -115,7 +115,7 @@ describe(`Balance Test Suite`, () => {
             testBalance = undefined;
         });
 
-        it(`should withdraw 50 from the balance when called`, () => {
+        it(`should debit 50 from the balance when called`, () => {
 
             // ARRANGE
             const expected = 50;

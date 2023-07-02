@@ -50,7 +50,7 @@ describe(`Tests for Accounts`, () => {
         })
     });
 
-    describe(`Tests for deposit on Account`, () => {
+    describe(`Tests for makeTransaction credit on Account`, () => {
 
         class MockBalance {
             #balance
@@ -105,7 +105,7 @@ describe(`Tests for Accounts`, () => {
             testAccount = undefined;
         })
 
-        it(`should check deposit is called`, () => {
+        it(`should check makeTransaction of transactionType credit is called`, () => {
 
             // ARRANGE
             const testDate = `2022-12-12`;
@@ -138,7 +138,7 @@ describe(`Tests for Accounts`, () => {
 
         });
 
-        it(`expect balanceSpy make transaction to have been called 3 times`, () => {
+        it(`expect balanceSpy makeTransaction to have been called 3 times`, () => {
 
             // ARRANGE
             const transactionArray = [
@@ -150,6 +150,7 @@ describe(`Tests for Accounts`, () => {
             const newAccount = new Account(newBalance);
             const balanceSpy = spyOn(newBalance, `makeTransaction`)
             const expected = 3;
+
             // ACT
             for (const transaction of transactionArray) {
 
@@ -163,7 +164,7 @@ describe(`Tests for Accounts`, () => {
 
     });
 
-    describe(`withdrawal tests`, () => {
+    describe(`makeTransaction debit tests`, () => {
         class MockBalance {
             #balance
             constructor(amount = 0) {
@@ -229,6 +230,7 @@ describe(`Tests for Accounts`, () => {
 
             // ACT
             testAccount.makeTransaction(testTransaction);
+
             // ASSERT
             expect(balanceSpy).toHaveBeenCalledWith(testType, amountToWithdraw);
         })
@@ -315,7 +317,7 @@ describe(`Tests for Accounts`, () => {
             testAccount = undefined;
         });
 
-        it(`should add deposit to accountTransactions`, () => {
+        it(`should add deposit to accountTransactions array`, () => {
 
             // ARRANGE
             const dateToTest = `2022-11-12`

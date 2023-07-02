@@ -90,7 +90,7 @@ describe(`Transaction Tests`, () => {
         testTransaction.setTransactionBalance(testBalance.getBalance());
 
         // ASSERT
-        expect(testTransaction).toEqual(expected)
+        expect(testTransaction).toEqual(expected);
     });
 
 })
