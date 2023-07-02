@@ -19,6 +19,13 @@ class Account {
         this.#accountTransactions = [transactionToAdd, ...this.#accountTransactions];
     }
 
+    makeTransaction(transactionObject) {
+        const transaction = transactionObject;
+        this.#accountBalance.makeTransaction(transaction.getTransactionType(), transaction.getAmount());
+        transaction.setTransactionBalance(this.getBalance());
+        this.addTransaction(transaction);
+    }
+
     deposit(transactionObject) {
         const transaction = transactionObject;
         this.#accountBalance.deposit(transaction.getAmount());

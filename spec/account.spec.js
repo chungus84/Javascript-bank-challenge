@@ -7,25 +7,10 @@ describe('Tests for Accounts', () => {
     describe('Tests for call getBalance on Account', () => {
 
         class MockBalance {
-            #balance
-            constructor(amount) {
-                this.#balance = amount;
-            }
-            getBalance = () => { return this.#balance }
-        }
-        class MockTransaction {
-            #date;
-            #transactionType;
-            #amount;
-            constructor(date, amount, transactionType = '') {
-                this.#date = date;
-                this.#amount = amount;
-                this.#transactionType = transactionType;
 
+            constructor(amount) {
             }
-            getAmount() {
-                return this.#amount;
-            }
+            getBalance() { return 10; }
         }
 
         beforeEach(() => {
@@ -72,13 +57,9 @@ describe('Tests for Accounts', () => {
             constructor(amount = 0) {
                 this.#balance = amount
             }
-            getBalance = () => { return this.#balance }
+            getBalance() { return this.#balance }
 
-            deposit = (amountToAdd) => {
-
-                if (isNaN(amountToAdd)) throw new Error('Please enter a valid number')
-                this.#balance += parseFloat(amountToAdd);
-            }
+            makeTransaction(transactionType, amountToAdd) { }
         }
 
         class MockTransaction {
@@ -93,9 +74,12 @@ describe('Tests for Accounts', () => {
 
             }
 
-
             getAmount() {
                 return this.#amount;
+            }
+
+            getTransactionType() {
+                return 'credit';
             }
 
             getFullTransaction() {
@@ -106,14 +90,12 @@ describe('Tests for Accounts', () => {
                     balance: this.#balance,
                 }
             }
-            setTransactionTypeAndBalance(transactionToAdd, balance) {
-                this.#transactionType = transactionToAdd;
+            setTransactionBalance(balance) {
                 this.#balance = balance;
             }
         }
 
         beforeEach(() => {
-            const testAmount = 10;
             testBalance = new MockBalance(10);
             testAccount = new Account(testBalance);
         })
@@ -130,53 +112,15 @@ describe('Tests for Accounts', () => {
             const testType = 'credit'
             const amountToDeposit = 100;
             const testTransaction = new MockTransaction(testDate, amountToDeposit, testType);
-            const balanceSpy = spyOn(testBalance, 'deposit');
+            const balanceSpy = spyOn(testBalance, 'makeTransaction');
 
             // ACT
-            testAccount.deposit(testTransaction);
+            testAccount.makeTransaction(testTransaction);
 
             // ASSERT
-            expect(balanceSpy).toHaveBeenCalledWith(amountToDeposit);
+            expect(balanceSpy).toHaveBeenCalledWith(testType, amountToDeposit);
         });
 
-        it('should check deposit when called in the Account class instance adds the amount to the balance', () => {
-
-            // ARRANGE
-            const testDate = '2022-12-12';
-            const testType = 'credit'
-            const amountToDeposit = 100;
-            const testTransaction = new MockTransaction(testDate, amountToDeposit, testType);
-            const expected = 110;
-            // ACT
-            testAccount.deposit(testTransaction)
-            // ASSERT
-            expect(testAccount.getBalance()).toBe(expected);
-
-        });
-
-        it('should convert a string that contains a parsable number e.g "100" into an int when called from Account class instance', () => {
-            // ARRANGE
-            const testDate = '2022-12-12';
-            const testType = 'credit'
-            const amountToDeposit = '100';
-            const testTransaction = new MockTransaction(testDate, amountToDeposit, testType);
-            const expected = 110;
-            // ACT
-            testAccount.deposit(testTransaction)
-            // ASSERT
-            expect(testAccount.getBalance()).toBe(expected);
-        });
-
-        it('should throw an error if string isNaN()', () => {
-            // ARRANGE
-            const testDate = '2022-12-12';
-            const testType = 'credit'
-            const amountToDeposit = 'hello';
-            const testTransaction = new MockTransaction(testDate, amountToDeposit, testType);
-            // ACT
-            // ASSERT
-            expect(() => { testAccount.deposit(testTransaction) }).toThrowError();
-        });
 
         it('should addTransaction is called when deposit is called and adds to accountTransactions array', () => {
             // ARRANGE
@@ -187,37 +131,33 @@ describe('Tests for Accounts', () => {
             const expected = 1;
 
             // ACT
-            testAccount.deposit(testTransaction);
+            testAccount.makeTransaction(testTransaction);
 
             // ASSERT
             expect(testAccount.getTransactions().length).toBe(expected);
 
         });
 
-        it('add 3 deposit transaction to the accountTransaction array and return a balance on the final array of 220', () => {
+        it('expect balanceSpy make transaction to have been called 3 times', () => {
 
             // ARRANGE
             const transactionArray = [
-                new MockTransaction('13/12/2022', 50),
-                new MockTransaction('14/12/2022', 100),
-                new MockTransaction('13/12/2022', 70),
+                new MockTransaction('13/12/2022', 50, `credit`),
+                new MockTransaction('14/12/2022', 100, `credit`),
+                new MockTransaction('13/12/2022', 70, `credit`),
             ]
-
-            const newAccount = new Account(new MockBalance());
-
-
+            const newBalance = new MockBalance(0);
+            const newAccount = new Account(newBalance);
+            const balanceSpy = spyOn(newBalance, 'makeTransaction')
+            const expected = 3;
+            // ACT
             for (const transaction of transactionArray) {
 
-                newAccount.deposit(transaction);
+                newAccount.makeTransaction(transaction);
             }
-            const expected = 220;
-
-            // ACT
-            const lastItem = newAccount.getTransactions().slice(0)
-            const actual = lastItem[0].getFullTransaction().balance
 
             // ASSERT
-            expect(actual).toBe(expected);
+            expect(balanceSpy).toHaveBeenCalledTimes(expected);
 
         })
 

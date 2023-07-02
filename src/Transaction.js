@@ -17,6 +17,10 @@ class Transaction {
         return this.#amount;
     }
 
+    getTransactionType() {
+        return this.#transactionType;
+    }
+
 
     getFullTransaction() {
         return {

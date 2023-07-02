@@ -41,6 +41,23 @@ describe('Balance Test Suite', () => {
 
         });
 
+        it('should add three transactions and show a balance of 230', () => {
+
+            // ARRANGE
+            const transactionArray = [
+                [`credit`, 50],
+                [`credit`, 100],
+                [`credit`, 70],
+            ]
+            const expected = 230;
+            // ACT
+            for (const transaction of transactionArray) {
+                testBalance.makeTransaction(transaction[0], transaction[1]);
+            }
+            // ASSERT
+            expect(testBalance.getBalance()).toBe(expected);
+        })
+
         it('should convert a string that contains a parsable number e.g "100" into a number', () => {
             // ARRANGE
             const amountToDeposit = '100';
@@ -173,16 +190,17 @@ describe('Balance Test Suite', () => {
 
             // ARRANGE
             const stringEntry = 'hello';
-            // actual = testBalance.validateEntry(stringEntry);
             // ACT
             // ASSERT
-            // console.log(actual);
             expect(() => { testBalance.validateEntry(stringEntry) }).toThrowError();
         });
 
         it('should throw error if given a null value', () => {
-            const nullEntry = null;
 
+            // ARRANGE
+            const nullEntry = null;
+            // ACT
+            // ASSERT
             expect(() => { testBalance.validateEntry(nullEntry) }).toThrowError();
         });
     });
