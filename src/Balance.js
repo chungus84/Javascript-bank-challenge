@@ -10,6 +10,11 @@ class Balance {
         return this.#balance;
     }
 
+    /*
+    Had to use an if-else here as it's a void method so with no return statement would continue just end up adding
+    the amount when exiting the even on debits.
+     */
+
     makeTransaction(transactionType, amount) {
         this.validateEntry(amount)
         if (transactionType === `debit`) {
