@@ -144,7 +144,7 @@ describe('Statement Class tests', () => {
 
     })
 
-    it('statementFormatter show up as green in the credit column and format the row as expected', () => {
+    it('statementFormatter should space the padding consistently for each deposit in a statement row', () => {
 
         // ARRANGE
         const deposit1 = new MockTransaction('10/12/2022', 2000);
@@ -152,7 +152,7 @@ describe('Statement Class tests', () => {
         testAccount.deposit(deposit1);
 
 
-        const expected = `10/12/2022 || ${chalk.green('2000.00')} ||        || 2000.00`;
+        const expected = `10/12/2022 || ${chalk.green('2000.00')} ||         || 2000.00`;
 
         const transactionDetails = testAccount.getTransactions();
 
@@ -161,7 +161,7 @@ describe('Statement Class tests', () => {
 
     });
 
-    it('statementFormatter should show up as red in the debit column and format the row', () => {
+    it('statementFormatter should space the padding consistently for each withdrawal in a statement row', () => {
         // ARRANGE
         const withdrawal = new MockTransaction('10/12/2022', 1000);
         const newBalance = new MockAccount(new MockBalance(2000))
@@ -172,6 +172,8 @@ describe('Statement Class tests', () => {
         const expected = `10/12/2022 ||         || ${chalk.red('1000.00')} || 1000.00`;
 
         const transactionDetails = newBalance.getTransactions();
+
+        console.log(transactionDetails[0].getFullTransaction());
 
 
         expect(Statement.statementFormatter(transactionDetails[0].getFullTransaction())).toEqual(expected);

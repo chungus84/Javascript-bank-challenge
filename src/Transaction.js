@@ -5,19 +5,22 @@ class Transaction {
     #transactionType;
     #balance = 0;
 
+
     constructor(date, amount, transactionType = '') {
-        this.#date = date;
+        this.#date = new Date(date);
         this.#transactionType = transactionType;
         this.#amount = amount;
     }
+
 
     getAmount() {
         return this.#amount;
     }
 
+
     getFullTransaction() {
         return {
-            date: this.#date,
+            date: this.#date.toLocaleDateString('en-GB'),
             amount: this.#amount.toFixed(2),
             transactionType: this.#transactionType,
             balance: this.#balance.toFixed(2),

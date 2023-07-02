@@ -92,6 +92,6 @@ describe('Transaction Tests', () => {
 
         // ASSERT
         expect(testTransaction).toEqual(expected)
-    })
+    });
 
 })

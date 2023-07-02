@@ -87,11 +87,13 @@ describe('Tests for Accounts', () => {
             #amount;
             #balance = 0
             constructor(date, amount, transactionType = '') {
-                this.#date = date;
+                this.#date = new Date(date);
                 this.#amount = amount;
                 this.#transactionType = transactionType;
 
             }
+
+
             getAmount() {
                 return this.#amount;
             }
@@ -124,7 +126,7 @@ describe('Tests for Accounts', () => {
         it('should check deposit is called', () => {
 
             // ARRANGE
-            const testDate = '12/12/2022';
+            const testDate = '2022-12-12';
             const testType = 'credit'
             const amountToDeposit = 100;
             const testTransaction = new MockTransaction(testDate, amountToDeposit, testType);
@@ -140,7 +142,7 @@ describe('Tests for Accounts', () => {
         it('should check deposit when called in the Account class instance adds the amount to the balance', () => {
 
             // ARRANGE
-            const testDate = '12/12/2022';
+            const testDate = '2022-12-12';
             const testType = 'credit'
             const amountToDeposit = 100;
             const testTransaction = new MockTransaction(testDate, amountToDeposit, testType);
@@ -154,7 +156,7 @@ describe('Tests for Accounts', () => {
 
         it('should convert a string that contains a parsable number e.g "100" into an int when called from Account class instance', () => {
             // ARRANGE
-            const testDate = '12/12/2022';
+            const testDate = '2022-12-12';
             const testType = 'credit'
             const amountToDeposit = '100';
             const testTransaction = new MockTransaction(testDate, amountToDeposit, testType);
@@ -167,7 +169,7 @@ describe('Tests for Accounts', () => {
 
         it('should throw an error if string isNaN()', () => {
             // ARRANGE
-            const testDate = '12/12/2022';
+            const testDate = '2022-12-12';
             const testType = 'credit'
             const amountToDeposit = 'hello';
             const testTransaction = new MockTransaction(testDate, amountToDeposit, testType);
@@ -178,7 +180,7 @@ describe('Tests for Accounts', () => {
 
         it('should addTransaction is called when deposit is called and adds to accountTransactions array', () => {
             // ARRANGE
-            const testDate = '12/12/2022';
+            const testDate = '2022-12-12';
             const testType = 'credit'
             const amountToDeposit = 100;
             const testTransaction = new MockTransaction(testDate, amountToDeposit, testType);
@@ -239,10 +241,14 @@ describe('Tests for Accounts', () => {
             #balance = 0;
 
             constructor(date, amount, transactionType = '') {
-                this.#date = date;
+                this.#date = new Date(date);
                 this.#amount = amount;
                 this.#transactionType = transactionType;
 
+            }
+
+            getDate() {
+                return this.#date;
             }
             getAmount() {
                 return this.#amount;
@@ -273,7 +279,7 @@ describe('Tests for Accounts', () => {
         })
         it('should call withdraw in Account class instance', () => {
             // ARRANGE
-            const testDate = '12/12/2022';
+            const testDate = '2022-12-12';
             const amountToWithdraw = 50;
             const balanceSpy = spyOn(testBalance, 'withdraw');
             const testTransaction = new MockTransaction(testDate, amountToWithdraw);
@@ -286,7 +292,7 @@ describe('Tests for Accounts', () => {
 
         it('should call withdraw from balance and remove 50 from balance', () => {
             // ARRANGE
-            const testDate = '12/12/2022';
+            const testDate = '2022-12-12';
             const expected = 50;
             const amountToWithdraw = 50;
             const testTransaction = new MockTransaction(testDate, amountToWithdraw);
@@ -297,7 +303,7 @@ describe('Tests for Accounts', () => {
         });
 
         it('should addTransaction is called when withdraw is called and adds to accountTransactions array', () => {
-            const testDate = '12/12/2022';
+            const testDate = '2022-12-12';
             const amountToWithdraw = 50;
             const testTransaction = new MockTransaction(testDate, amountToWithdraw);
             const expected = 1;
@@ -359,12 +365,16 @@ describe('Tests for Accounts', () => {
             #amount;
             #balance = 0;
             constructor(date, amount, transactionType = '') {
-                this.#date = date;
+                this.#date = new Date(date);
                 this.#amount = amount;
                 this.#transactionType = transactionType;
 
             }
+            getDate() {
+                return this.#date
+            }
         }
+
 
         beforeEach(() => {
             testBalance = new MockBalance(100)
@@ -379,7 +389,7 @@ describe('Tests for Accounts', () => {
         it('should add deposit to accountTransactions', () => {
 
             // ARRANGE
-            const dateToTest = '12/11/2022'
+            const dateToTest = '2022-11-12'
             const transactionType = 'credit'
             const amountToDeposit = 50;
             const testTransaction = new MockTransaction(dateToTest, amountToDeposit, transactionType)
@@ -394,7 +404,7 @@ describe('Tests for Accounts', () => {
         it('should after added to the array should return an instance of MockTransaction', () => {
 
             // ARRANGE
-            const dateToTest = '12/11/2022'
+            const dateToTest = '2022-11-12'
             const transactionType = 'credit'
             const amountToDeposit = 50;
             const testTransaction = new MockTransaction(dateToTest, amountToDeposit, transactionType)
