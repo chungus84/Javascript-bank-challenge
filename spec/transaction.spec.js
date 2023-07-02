@@ -26,7 +26,7 @@ describe(`Transaction Tests`, () => {
         // ARRANGE
         const amount = 50;
         const transactionType = `credit`;
-        const transactionDate = `10/10/2010`;
+        const transactionDate = `2010-10-10`;
 
         // ACT
         testTransaction = new Transaction(transactionDate, amount, transactionType);
@@ -42,7 +42,7 @@ describe(`Transaction Tests`, () => {
         // ARRANGE
         const amount = 50
         const transactionType = `credit`;
-        const transactionDate = `10/10/2010`;
+        const transactionDate = `2010-10-10`;
         testTransaction = new Transaction(transactionDate, amount, transactionType);
 
 
@@ -59,10 +59,10 @@ describe(`Transaction Tests`, () => {
         // ARRANGE
         const amount = 50;
         const transactionType = `credit`;
-        const transactionDate = `10/10/2010`;
+        const transactionDate = `2010-10-10`;
         testTransaction = new Transaction(transactionDate, amount, transactionType);
         const expected = {
-            date: transactionDate,
+            date: `10/10/2010`,
             amount: amount.toFixed(2),
             transactionType: transactionType,
             balance: `0.00`,
@@ -80,7 +80,7 @@ describe(`Transaction Tests`, () => {
 
         // ARRANGE
         const amount = 0;
-        const transactionDate = `10/10/2010`;
+        const transactionDate = `2010-10-10`;
         const testBalance = new MockBalance(100);
         const testType = `credit`
         testTransaction = new Transaction(transactionDate, amount, testType);

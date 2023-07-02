@@ -46,28 +46,43 @@ As a user,
 I want to see my bank balance,
 so I know how much I have in my account.
 
-|  Objects   |  Properties               |   Messages                    |  Output  |
-| ---------- | ------------------------- | ----------------------------- | -------- |
-|  Balance   | balance @int              | getBalance()                  | @int     |
-|  Account   | AccountBalance = @Balance | getBalance()                  | @int     |
+|  Objects   |  Properties               |   Messages                    |  Output    |
+| ---------- | ------------------------- | ----------------------------- | ---------- |
+|  Balance   | balance @float            | getBalance()                  | @float     |
+|  Account   | AccountBalance = @Balance | getBalance()                  | @float     |
 
 As a user,
 I want to deposit an amount of money,
  so I can add money to an account.
 
-|  Objects   |  Properties               |   Messages                    |  Output  |
-| ---------- | ------------------------- | ----------------------------- | -------- |
-|  Balance   | balance @int              |                               |          |
-|  Account   | accountBalance = @Balance | deposit(@int)                 | @void    |
+|  Objects    |  Properties                        |   Messages                   |  Output  |
+| ----------- | ---------------------------------- | -----------------------------| -------- |
+|  Balance    | balance @float                     | makeTransaction(@float)      | @void    |
+|  Account    | accountBalance = @Balance          | makeTransaction(@float)      | @void    |
+|             | accountTransactions [@Transaction] | validateEntry()              | @boolean |
+|             |                                    | getBalance()                 | @float   |
+|             |                                    | addTransaction(@Transaction) | @void    |
+| Transaction | date @Date                         | getTransactionType()         | @string  |
+|             | amount @float                      | getAmount()                  | @float   |
+|             | transactionType @string            | setTransactionBalance(@float)| @void    |
+|             | balance @float                     |                              |          |
+
 
 As a user,
 I want to withdraw an amount of money,
 so I can use my money
 
-|  Objects   |  Properties               |   Messages                    |  Output  |
-| ---------- | ------------------------- | ----------------------------- | -------- |
-|  Balance   | balance @int              |                               |          |
-|  Account   | accountBalance = @Balance | withdraw(@int)                | @void    |
+|  Objects    |  Properties                        |   Messages                   |  Output  |
+| ----------- | ---------------------------------- | -----------------------------| -------- |
+|  Balance    | balance @float                     | makeTransaction(@float)      | @void    |
+|  Account    | accountBalance = @Balance          | makeTransaction(@float)      | @void    |
+|             | accountTransactions [@Transaction] | validateEntry()              | @boolean |
+|             |                                    | getBalance()                 | @float   |
+|             |                                    | addTransaction(@Transaction) | @void    |
+| Transaction | date @Date                         | getTransactionType()         | @string  |
+|             | amount @float                      | getAmount()                  | @float   |
+|             | transactionType @string            | setTransactionBalance(@float)| @void    |
+|             | balance @float                     |                              |          |
 
 As a user,
 I want to show all deposits I have made,
@@ -93,10 +108,11 @@ As a user,
 I want to print statement to show my deposits, withdrawals and balance in date order.
 To show my account activity.
 
-|  Objects        |  Properties                       |   Messages         |  Output  |
-| --------------- | --------------------------------- | -------------------| -------- |
-|  Account        | accountTransactions[@Transaction] | getTransactions()  | @Array   |
-|  Statement      |                                   | printStatement()   | @String  |
+|  Objects        |  Properties                       |   Messages           |  Output  |
+| --------------- | --------------------------------- | ---------------------| -------- |
+|  Account        | accountTransactions[@Transaction] | getTransactions()    | @Array   |
+|  Statement      | statementHeader @String           | printStatement()     | @String  |
+|                 |                                   | statementFormatter() | @String  |
 ```
 #### Extended user stories and domain models
 ```
@@ -104,17 +120,19 @@ As a user,
 When calling printStatement I want to see all deposits highlighted in green,
 To easily see what I have deposited.
 
-|  Objects        |  Properties     |   Messages         |  Output  |
-| --------------- | --------------- | -------------------| -------- |
-|  Statement      |  ???            | ???                | ???      |
+|  Objects        |  Properties             |   Messages           |  Output  |
+| --------------- | ----------------------- | ---------------------| -------- |
+|  Statement      | statementHeader @String | printStatement()     | @String  |
+|                 |                         | statementFormatter() | @String  |
 
 As a user,
 When calling printStatement I want to see all withdrawals highlighted in red,
 To easily see what I have withdrawn.
 
-|  Objects        |  Properties     |   Messages         |  Output  |
-| --------------- | --------------- | -------------------| -------- |
-|  Statement      |  ???            | ???                | ???      |
+|  Objects        |  Properties             |   Messages           |  Output  |
+| --------------- | ----------------------- | ---------------------| -------- |
+|  Statement      | statementHeader @String | printStatement()     | @String  |
+|                 |                         | statementFormatter() | @String  |
 
 ```
 
