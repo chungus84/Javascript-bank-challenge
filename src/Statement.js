@@ -13,7 +13,7 @@ class Statement {
     }
 
     static statementFormatter(detail) {
-        const emptyString = '       ';
+        const emptyString = `       `;
         if (detail.transactionType === 'debit') {
             return `${detail.date} || ${emptyString.padEnd(7)} || ${chalk.red(detail.amount.padEnd(7))} || ${detail.balance}`;
         }

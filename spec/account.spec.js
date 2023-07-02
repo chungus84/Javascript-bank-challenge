@@ -1,10 +1,10 @@
 import Account from "../src/Account.js";
 
-describe('Tests for Accounts', () => {
+describe(`Tests for Accounts`, () => {
 
     let testAccount, testBalance;
 
-    describe('Tests for call getBalance on Account', () => {
+    describe(`Tests for call getBalance on Account`, () => {
 
         class MockBalance {
 
@@ -25,11 +25,11 @@ describe('Tests for Accounts', () => {
 
         })
 
-        it('should check getBalance on Account is called', () => {
+        it(`should check getBalance on Account is called`, () => {
 
             // ARRANGE
 
-            const balanceSpy = spyOn(testBalance, 'getBalance');
+            const balanceSpy = spyOn(testBalance, `getBalance`);
 
             // ACT
             testAccount.getBalance();
@@ -39,7 +39,7 @@ describe('Tests for Accounts', () => {
 
         });
 
-        it('should return the account balance when called on Account', () => {
+        it(`should return the account balance when called on Account`, () => {
 
             // ARRANGE
             const expected = 10;
@@ -50,7 +50,7 @@ describe('Tests for Accounts', () => {
         })
     });
 
-    describe('Tests for deposit on Account', () => {
+    describe(`Tests for deposit on Account`, () => {
 
         class MockBalance {
             #balance
@@ -67,7 +67,7 @@ describe('Tests for Accounts', () => {
             #transactionType;
             #amount;
             #balance = 0
-            constructor(date, amount, transactionType = '') {
+            constructor(date, amount, transactionType = ``) {
                 this.#date = new Date(date);
                 this.#amount = amount;
                 this.#transactionType = transactionType;
@@ -79,7 +79,7 @@ describe('Tests for Accounts', () => {
             }
 
             getTransactionType() {
-                return 'credit';
+                return `credit`;
             }
 
             getFullTransaction() {
@@ -105,14 +105,14 @@ describe('Tests for Accounts', () => {
             testAccount = undefined;
         })
 
-        it('should check deposit is called', () => {
+        it(`should check deposit is called`, () => {
 
             // ARRANGE
-            const testDate = '2022-12-12';
-            const testType = 'credit'
+            const testDate = `2022-12-12`;
+            const testType = `credit`
             const amountToDeposit = 100;
             const testTransaction = new MockTransaction(testDate, amountToDeposit, testType);
-            const balanceSpy = spyOn(testBalance, 'makeTransaction');
+            const balanceSpy = spyOn(testBalance, `makeTransaction`);
 
             // ACT
             testAccount.makeTransaction(testTransaction);
@@ -122,10 +122,10 @@ describe('Tests for Accounts', () => {
         });
 
 
-        it('should addTransaction is called when deposit is called and adds to accountTransactions array', () => {
+        it(`should addTransaction is called when deposit is called and adds to accountTransactions array`, () => {
             // ARRANGE
-            const testDate = '2022-12-12';
-            const testType = 'credit'
+            const testDate = `2022-12-12`;
+            const testType = `credit`
             const amountToDeposit = 100;
             const testTransaction = new MockTransaction(testDate, amountToDeposit, testType);
             const expected = 1;
@@ -138,17 +138,17 @@ describe('Tests for Accounts', () => {
 
         });
 
-        it('expect balanceSpy make transaction to have been called 3 times', () => {
+        it(`expect balanceSpy make transaction to have been called 3 times`, () => {
 
             // ARRANGE
             const transactionArray = [
-                new MockTransaction('13/12/2022', 50, `credit`),
-                new MockTransaction('14/12/2022', 100, `credit`),
-                new MockTransaction('13/12/2022', 70, `credit`),
+                new MockTransaction(`13/12/2022`, 50, `credit`),
+                new MockTransaction(`14/12/2022`, 100, `credit`),
+                new MockTransaction(`13/12/2022`, 70, `credit`),
             ]
             const newBalance = new MockBalance(0);
             const newAccount = new Account(newBalance);
-            const balanceSpy = spyOn(newBalance, 'makeTransaction')
+            const balanceSpy = spyOn(newBalance, `makeTransaction`)
             const expected = 3;
             // ACT
             for (const transaction of transactionArray) {
@@ -163,7 +163,7 @@ describe('Tests for Accounts', () => {
 
     });
 
-    describe('withdrawal tests', () => {
+    describe(`withdrawal tests`, () => {
         class MockBalance {
             #balance
             constructor(amount = 0) {
@@ -180,14 +180,14 @@ describe('Tests for Accounts', () => {
             #transactionType;
             #balance = 0;
 
-            constructor(date, amount, transactionType = '') {
+            constructor(date, amount, transactionType = ``) {
                 this.#date = new Date(date);
                 this.#amount = amount;
                 this.#transactionType = transactionType;
 
             }
             getTransactionType() {
-                return 'debit';
+                return `debit`;
             }
 
             getDate() {
@@ -219,12 +219,12 @@ describe('Tests for Accounts', () => {
             testBalance = undefined;
             testAccount = undefined;
         })
-        it('should call makeTransaction should be called with the testTransaction ', () => {
+        it(`should call makeTransaction should be called with the testTransaction `, () => {
             // ARRANGE
-            const testDate = '2022-12-12';
+            const testDate = `2022-12-12`;
             const amountToWithdraw = 50;
-            const testType = 'debit'
-            const balanceSpy = spyOn(testBalance, 'makeTransaction');
+            const testType = `debit`
+            const balanceSpy = spyOn(testBalance, `makeTransaction`);
             const testTransaction = new MockTransaction(testDate, amountToWithdraw, testType);
 
             // ACT
@@ -233,10 +233,10 @@ describe('Tests for Accounts', () => {
             expect(balanceSpy).toHaveBeenCalledWith(testType, amountToWithdraw);
         })
 
-        it('should addTransaction is called when withdraw is called and adds to accountTransactions array', () => {
-            const testDate = '2022-12-12';
+        it(`should addTransaction is called when withdraw is called and adds to accountTransactions array`, () => {
+            const testDate = `2022-12-12`;
             const amountToWithdraw = 50;
-            const testType = 'debit'
+            const testType = `debit`
             const testTransaction = new MockTransaction(testDate, amountToWithdraw, testType);
             const expected = 1;
 
@@ -247,17 +247,17 @@ describe('Tests for Accounts', () => {
             expect(testAccount.getTransactions().length).toBe(expected);
         });
 
-        it('add 3 withdraw transactions to the accountTransaction array and return a balance on the final array of 100', () => {
+        it(`add 3 withdraw transactions to the accountTransaction array and return a balance on the final array of 100`, () => {
 
             // ARRANGE
             const transactionArray = [
-                new MockTransaction('13/12/2022', 50, `debit`),
-                new MockTransaction('14/12/2022', 100, `debit`),
-                new MockTransaction('13/12/2022', 70, `debit`),
+                new MockTransaction(`13/12/2022`, 50, `debit`),
+                new MockTransaction(`14/12/2022`, 100, `debit`),
+                new MockTransaction(`13/12/2022`, 70, `debit`),
             ]
             const newBalance = new MockBalance(0);
             const newAccount = new Account(newBalance);
-            const balanceSpy = spyOn(newBalance, 'makeTransaction')
+            const balanceSpy = spyOn(newBalance, `makeTransaction`)
             const expected = 3;
             // ACT
             for (const transaction of transactionArray) {
@@ -272,7 +272,7 @@ describe('Tests for Accounts', () => {
 
     });
 
-    describe('Account Transaction Tests', () => {
+    describe(`Account Transaction Tests`, () => {
         class MockBalance {
             #balance
             constructor(amount) {
@@ -283,7 +283,7 @@ describe('Tests for Accounts', () => {
             getBalance = () => { return this.#balance }
 
             deposit = (amountToAdd) => {
-                if (isNaN(amountToAdd)) throw new Error('Please enter a valid number')
+                if (isNaN(amountToAdd)) throw new Error(`Please enter a valid number`)
                 this.#balance += parseFloat(amountToAdd);
             }
         }
@@ -293,7 +293,7 @@ describe('Tests for Accounts', () => {
             #transactionType;
             #amount;
             #balance = 0;
-            constructor(date, amount, transactionType = '') {
+            constructor(date, amount, transactionType = ``) {
                 this.#date = new Date(date);
                 this.#amount = amount;
                 this.#transactionType = transactionType;
@@ -315,11 +315,11 @@ describe('Tests for Accounts', () => {
             testAccount = undefined;
         });
 
-        it('should add deposit to accountTransactions', () => {
+        it(`should add deposit to accountTransactions`, () => {
 
             // ARRANGE
-            const dateToTest = '2022-11-12'
-            const transactionType = 'credit'
+            const dateToTest = `2022-11-12`
+            const transactionType = `credit`
             const amountToDeposit = 50;
             const testTransaction = new MockTransaction(dateToTest, amountToDeposit, transactionType)
             // ACT
@@ -330,11 +330,11 @@ describe('Tests for Accounts', () => {
 
         });
 
-        it('should after added to the array should return an instance of MockTransaction', () => {
+        it(`should after added to the array should return an instance of MockTransaction`, () => {
 
             // ARRANGE
-            const dateToTest = '2022-11-12'
-            const transactionType = 'credit'
+            const dateToTest = `2022-11-12`
+            const transactionType = `credit`
             const amountToDeposit = 50;
             const testTransaction = new MockTransaction(dateToTest, amountToDeposit, transactionType)
             // ACT
@@ -344,13 +344,13 @@ describe('Tests for Accounts', () => {
             expect(testAccount.getTransactions()[0]).toBeInstanceOf(MockTransaction);
         });
 
-        it('should add 3 transactions to the array', () => {
+        it(`should add 3 transactions to the array`, () => {
 
             // ARRANGE
             const transactionArray = [
-                new MockTransaction('2022-11-12', 50, 'credit'),
-                new MockTransaction('2022-11-13', 100, 'credit'),
-                new MockTransaction('2022-11-14', 70, 'debit'),
+                new MockTransaction(`2022-11-12`, 50, `credit`),
+                new MockTransaction(`2022-11-13`, 100, `credit`),
+                new MockTransaction(`2022-11-14`, 70, `debit`),
             ]
             const expected = 3
 

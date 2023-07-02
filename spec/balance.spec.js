@@ -1,11 +1,11 @@
 import Balance from "../src/Balance.js";
 
-describe('Balance Test Suite', () => {
+describe(`Balance Test Suite`, () => {
 
     let testBalance;
 
-    describe('getBalance Tests', () => {
-        it('should check getBalance is called on Balance and returns the balance amount', () => {
+    describe(`getBalance Tests`, () => {
+        it(`should check getBalance is called on Balance and returns the balance amount`, () => {
 
             // ARRANGE
             testBalance = new Balance(10);
@@ -41,7 +41,7 @@ describe('Balance Test Suite', () => {
 
         });
 
-        it('should add three transactions and show a balance of 230', () => {
+        it(`should add three transactions and show a balance of 230`, () => {
 
             // ARRANGE
             const transactionArray = [
@@ -58,9 +58,9 @@ describe('Balance Test Suite', () => {
             expect(testBalance.getBalance()).toBe(expected);
         })
 
-        it('should convert a string that contains a parsable number e.g "100" into a number', () => {
+        it(`should convert a string that contains a parsable number e.g "100" into a number`, () => {
             // ARRANGE
-            const amountToDeposit = '100';
+            const amountToDeposit = `100`;
             const expected = 110;
             const transactionType = `credit`
             // ACT
@@ -69,16 +69,16 @@ describe('Balance Test Suite', () => {
             expect(testBalance.getBalance()).toBe(expected);
         });
 
-        it('should throw an error if string isNaN()', () => {
+        it(`should throw an error if string isNaN()`, () => {
             // ARRANGE
-            const amountToDeposit = 'hello';
+            const amountToDeposit = `hello`;
             const transactionType = `credit`
             // ACT
             // ASSERT
             expect(() => { testBalance.makeTransaction(transactionType, amountToDeposit) }).toThrowError();
         });
 
-        it('should throw an error if given a null value', () => {
+        it(`should throw an error if given a null value`, () => {
             // ARRANGE
             const nullDeposit = null;
             const transactionType = `credit`
@@ -87,7 +87,7 @@ describe('Balance Test Suite', () => {
             expect(() => { testBalance.makeTransaction(transactionType, nullDeposit) }).toThrowError();
         });
 
-        it('should throw an error if given an undefined value', () => {
+        it(`should throw an error if given an undefined value`, () => {
             // ARRANGE
             const undefinedDeposit = undefined;
             const transactionType = `credit`
@@ -95,7 +95,7 @@ describe('Balance Test Suite', () => {
             // ASSERT
             expect(() => { testBalance.makeTransaction(transactionType, undefinedDeposit) }).toThrowError();
         });
-        it('should throw an error if number is less than 0 (-1)', () => {
+        it(`should throw an error if number is less than 0 (-1)`, () => {
             const lessThanZeroAmount = -1;
             const transactionType = `credit`
 
@@ -105,7 +105,7 @@ describe('Balance Test Suite', () => {
 
     });
 
-    describe('withdraw tests', () => {
+    describe(`withdraw tests`, () => {
 
         beforeEach(() => {
             testBalance = new Balance(100);
@@ -115,7 +115,7 @@ describe('Balance Test Suite', () => {
             testBalance = undefined;
         });
 
-        it('should withdraw 50 from the balance when called', () => {
+        it(`should withdraw 50 from the balance when called`, () => {
 
             // ARRANGE
             const expected = 50;
@@ -127,56 +127,56 @@ describe('Balance Test Suite', () => {
             expect(testBalance.getBalance()).toBe(expected);
         })
 
-        it('should throw an error if the amountToWithdraw is greater than the balance', () => {
+        it(`should throw an error if the amountToWithdraw is greater than the balance`, () => {
 
             // ARRANGE
             const amountToTakeout = 120;
-            const transactionType = 'debit'
+            const transactionType = `debit`
             // ACT
             // ASSERT
             expect(() => { testBalance.makeTransaction(transactionType, amountToTakeout) }).toThrowError();
         });
 
-        it('should convert a string that contains a parsable number e.g "50" into an int', () => {
+        it(`should convert a string that contains a parsable number e.g "50" into an int`, () => {
             // ARRANGE
-            const amountToWithdraw = '50';
+            const amountToWithdraw = `50`;
             const expected = 50;
-            const transactionType = 'debit'
+            const transactionType = `debit`
             // ACT
             testBalance.makeTransaction(transactionType, amountToWithdraw);
             // ASSERT
             expect(testBalance.getBalance()).toBe(expected);
         });
 
-        it('should throw an error if string isNaN()', () => {
+        it(`should throw an error if string isNaN()`, () => {
             // ARRANGE
-            const amountToDeposit = 'hello';
-            const transactionType = 'debit'
+            const amountToDeposit = `hello`;
+            const transactionType = `debit`
             // ACT
             // ASSERT
             expect(() => { testBalance.makeTransaction(transactionType, amountToDeposit) }).toThrowError();
         });
 
-        it('should throw an error if given a null value', () => {
+        it(`should throw an error if given a null value`, () => {
             // ARRANGE
             const nullDeposit = null;
-            const transactionType = 'debit'
+            const transactionType = `debit`
             // ACT
             // ASSERT
             expect(() => { testBalance.makeTransaction(transactionType, nullDeposit) }).toThrowError();
         });
 
-        it('should throw an error if given an undefined value', () => {
+        it(`should throw an error if given an undefined value`, () => {
             // ARRANGE
             const undefinedDeposit = undefined;
-            const transactionType = 'debit'
+            const transactionType = `debit`
             // ACT
             // ASSERT
             expect(() => { testBalance.makeTransaction(transactionType, undefinedDeposit) }).toThrowError();
         });
     });
 
-    describe('ValidateEntry Tests', () => {
+    describe(`ValidateEntry Tests`, () => {
 
         beforeEach(() => {
             testBalance = new Balance(50);
@@ -186,16 +186,16 @@ describe('Balance Test Suite', () => {
             testBalance = undefined;
         });
 
-        it('should throw an error if given a string "hello"', () => {
+        it(`should throw an error if given a string "hello"`, () => {
 
             // ARRANGE
-            const stringEntry = 'hello';
+            const stringEntry = `hello`;
             // ACT
             // ASSERT
             expect(() => { testBalance.validateEntry(stringEntry) }).toThrowError();
         });
 
-        it('should throw error if given a null value', () => {
+        it(`should throw error if given a null value`, () => {
 
             // ARRANGE
             const nullEntry = null;

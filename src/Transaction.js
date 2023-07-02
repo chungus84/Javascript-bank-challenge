@@ -21,7 +21,7 @@ class Transaction {
 
     getFullTransaction() {
         return {
-            date: this.#date.toLocaleDateString('en-GB'),
+            date: this.#date.toLocaleDateString(`en-GB`),
             amount: this.#amount.toFixed(2),
             transactionType: this.#transactionType,
             balance: this.#balance.toFixed(2),

@@ -1,6 +1,6 @@
 import Transaction from "../src/Transaction.js";
 
-describe('Transaction Tests', () => {
+describe(`Transaction Tests`, () => {
 
     let testTransaction;
 
@@ -21,12 +21,12 @@ describe('Transaction Tests', () => {
         testTransaction = undefined;
     })
 
-    it('should create a Transaction data object', () => {
+    it(`should create a Transaction data object`, () => {
 
         // ARRANGE
         const amount = 50;
-        const transactionType = 'credit';
-        const transactionDate = '10/10/2010';
+        const transactionType = `credit`;
+        const transactionDate = `10/10/2010`;
 
         // ACT
         testTransaction = new Transaction(transactionDate, amount, transactionType);
@@ -37,12 +37,12 @@ describe('Transaction Tests', () => {
 
     });
 
-    it('should return amount (50) from Transaction instance object', () => {
+    it(`should return amount (50) from Transaction instance object`, () => {
 
         // ARRANGE
         const amount = 50
-        const transactionType = 'credit';
-        const transactionDate = '10/10/2010';
+        const transactionType = `credit`;
+        const transactionDate = `10/10/2010`;
         testTransaction = new Transaction(transactionDate, amount, transactionType);
 
 
@@ -55,17 +55,17 @@ describe('Transaction Tests', () => {
     })
 
 
-    it('getFullTransaction should return all fields in an object', () => {
+    it(`getFullTransaction should return all fields in an object`, () => {
         // ARRANGE
         const amount = 50;
-        const transactionType = 'credit';
-        const transactionDate = '10/10/2010';
+        const transactionType = `credit`;
+        const transactionDate = `10/10/2010`;
         testTransaction = new Transaction(transactionDate, amount, transactionType);
         const expected = {
             date: transactionDate,
             amount: amount.toFixed(2),
             transactionType: transactionType,
-            balance: '0.00',
+            balance: `0.00`,
         }
 
         // ACT
@@ -76,13 +76,13 @@ describe('Transaction Tests', () => {
 
     });
 
-    it('setTransactionBalance should set the balance of testTransaction to 100.00', () => {
+    it(`setTransactionBalance should set the balance of testTransaction to 100.00`, () => {
 
         // ARRANGE
         const amount = 0;
-        const transactionDate = '10/10/2010';
+        const transactionDate = `10/10/2010`;
         const testBalance = new MockBalance(100);
-        const testType = 'credit'
+        const testType = `credit`
         testTransaction = new Transaction(transactionDate, amount, testType);
         const expected = new Transaction(transactionDate, amount, testType, 100);
 
