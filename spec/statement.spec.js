@@ -34,8 +34,8 @@ describe(`Statement Class tests`, () => {
         */
         makeTransaction(transactionType, amount) {
             if (transactionType === `credit`) {
-                this.#balance += amount
-            } else { this.#balance -= amount };
+                this.#balance += amount;
+            } else { this.#balance -= amount; }
         }
     }
 
@@ -65,16 +65,16 @@ describe(`Statement Class tests`, () => {
     beforeEach(() => {
         testBalance = new MockBalance(0);
         testAccount = new MockAccount(testBalance);
-    })
+    });
 
 
 
     it(`printStatement should be called twice (header and transaction)`, () => {
 
         // ARRANGE
-        const testAmount = 1000
-        const testType = `credit`
-        const logSpy = spyOn(global.console, `log`)
+        const testAmount = 1000;
+        const testType = `credit`;
+        const logSpy = spyOn(global.console, `log`);
         testTransaction = new MockTransaction(`2012-01-10`, testAmount, testType);
         testAccount.makeTransaction(testTransaction);
 
@@ -94,7 +94,7 @@ describe(`Statement Class tests`, () => {
             new MockTransaction(`2012-01-10`, 500, `credit`),
 
         ]
-        const logSpy = spyOn(global.console, `log`)
+        const logSpy = spyOn(global.console, `log`);
         transactionArray.forEach(transaction => testAccount.makeTransaction(transaction));
 
         // ACT
@@ -102,7 +102,7 @@ describe(`Statement Class tests`, () => {
 
         // ASSERT
         expect(logSpy).toHaveBeenCalledTimes(4);
-    })
+    });
 
     it(`statementFormatter should space the padding and return green consistently for each credit in a statement row`, () => {
 
@@ -131,5 +131,5 @@ describe(`Statement Class tests`, () => {
 
         // ASSERT
         expect(Statement.statementFormatter(transactionDetails[0].getFullTransaction())).toEqual(expected);
-    })
+    });
 })

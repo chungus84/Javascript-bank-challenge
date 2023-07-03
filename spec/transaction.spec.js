@@ -19,7 +19,7 @@ describe(`Transaction Tests`, () => {
 
     afterEach(() => {
         testTransaction = undefined;
-    })
+    });
 
     it(`should create a Transaction data object`, () => {
 
@@ -32,7 +32,6 @@ describe(`Transaction Tests`, () => {
         testTransaction = new Transaction(transactionDate, amount, transactionType);
 
         // ASSERT
-
         expect(testTransaction).toBeInstanceOf(Transaction);
 
     });
@@ -45,7 +44,6 @@ describe(`Transaction Tests`, () => {
         const transactionDate = `2010-10-10`;
         testTransaction = new Transaction(transactionDate, amount, transactionType);
 
-
         //ACT
         const actual = testTransaction.getAmount();
 
@@ -56,6 +54,7 @@ describe(`Transaction Tests`, () => {
 
 
     it(`getFullTransaction should return all fields in an object`, () => {
+
         // ARRANGE
         const amount = 50;
         const transactionType = `credit`;

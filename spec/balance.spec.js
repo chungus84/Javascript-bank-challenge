@@ -12,7 +12,6 @@ describe(`Balance Test Suite`, () => {
             const expected = 10;
 
             // ACT
-
             // ASSERT
             expect(testBalance.getBalance()).toBe(expected);
         });
@@ -33,7 +32,7 @@ describe(`Balance Test Suite`, () => {
             // ARRANGE
             const amountToAdd = 100;
             const expected = 110;
-            const transactionType = `credit`
+            const transactionType = `credit`;
             // ACT
             testBalance.makeTransaction(transactionType, amountToAdd);
             // ASSERT
@@ -59,10 +58,11 @@ describe(`Balance Test Suite`, () => {
         })
 
         it(`should convert a string that contains a parsable number e.g "100" into a number`, () => {
+
             // ARRANGE
             const amountToDeposit = `100`;
             const expected = 110;
-            const transactionType = `credit`
+            const transactionType = `credit`;
             // ACT
             testBalance.makeTransaction(transactionType, amountToDeposit)
             // ASSERT
@@ -70,35 +70,42 @@ describe(`Balance Test Suite`, () => {
         });
 
         it(`should throw an error if string isNaN()`, () => {
+
             // ARRANGE
             const amountToDeposit = `hello`;
-            const transactionType = `credit`
+            const transactionType = `credit`;
             // ACT
             // ASSERT
             expect(() => { testBalance.makeTransaction(transactionType, amountToDeposit) }).toThrowError();
         });
 
         it(`should throw an error if given a null value`, () => {
+
             // ARRANGE
             const nullDeposit = null;
-            const transactionType = `credit`
+            const transactionType = `credit`;
             // ACT
             // ASSERT
             expect(() => { testBalance.makeTransaction(transactionType, nullDeposit) }).toThrowError();
         });
 
         it(`should throw an error if given an undefined value`, () => {
+
             // ARRANGE
             const undefinedDeposit = undefined;
-            const transactionType = `credit`
+            const transactionType = `credit`;
             // ACT
             // ASSERT
             expect(() => { testBalance.makeTransaction(transactionType, undefinedDeposit) }).toThrowError();
         });
         it(`should throw an error if number is less than 0 (-1)`, () => {
-            const lessThanZeroAmount = -1;
-            const transactionType = `credit`
 
+            // ARRANGE
+            const lessThanZeroAmount = -1;
+            const transactionType = `credit`;
+
+            // ACT
+            // ASSERT
             expect(() => { testBalance.makeTransaction(transactionType, lessThanZeroAmount) }).toThrowError();
 
         })
@@ -120,59 +127,82 @@ describe(`Balance Test Suite`, () => {
             // ARRANGE
             const expected = 50;
             const amountToWithdraw = 50;
-            const transactionType = `debit`
+            const transactionType = `debit`;
+
             // ACT
             testBalance.makeTransaction(transactionType, amountToWithdraw);
+
             // ASSERT
             expect(testBalance.getBalance()).toBe(expected);
-        })
+        });
 
         it(`should throw an error if the amountToWithdraw is greater than the balance`, () => {
 
             // ARRANGE
             const amountToTakeout = 120;
-            const transactionType = `debit`
+            const transactionType = `debit`;
+
             // ACT
             // ASSERT
             expect(() => { testBalance.makeTransaction(transactionType, amountToTakeout) }).toThrowError();
         });
 
         it(`should convert a string that contains a parsable number e.g "50" into an int`, () => {
+
             // ARRANGE
             const amountToWithdraw = `50`;
             const expected = 50;
-            const transactionType = `debit`
+            const transactionType = `debit`;
+
             // ACT
             testBalance.makeTransaction(transactionType, amountToWithdraw);
+
             // ASSERT
             expect(testBalance.getBalance()).toBe(expected);
         });
 
         it(`should throw an error if string isNaN()`, () => {
+
             // ARRANGE
             const amountToDeposit = `hello`;
-            const transactionType = `debit`
+            const transactionType = `debit`;
+
             // ACT
             // ASSERT
             expect(() => { testBalance.makeTransaction(transactionType, amountToDeposit) }).toThrowError();
         });
 
         it(`should throw an error if given a null value`, () => {
+
             // ARRANGE
             const nullDeposit = null;
-            const transactionType = `debit`
+            const transactionType = `debit`;
+
             // ACT
             // ASSERT
             expect(() => { testBalance.makeTransaction(transactionType, nullDeposit) }).toThrowError();
         });
 
         it(`should throw an error if given an undefined value`, () => {
+
             // ARRANGE
             const undefinedDeposit = undefined;
-            const transactionType = `debit`
+            const transactionType = `debit`;
+
             // ACT
             // ASSERT
             expect(() => { testBalance.makeTransaction(transactionType, undefinedDeposit) }).toThrowError();
+        });
+        it(`should throw an error if number is less than 0 (-1)`, () => {
+
+            // ARRANGE
+            const lessThanZeroAmount = -1;
+            const transactionType = `debit`;
+
+            // ACT
+            // ASSERT
+            expect(() => { testBalance.makeTransaction(transactionType, lessThanZeroAmount) }).toThrowError();
+
         });
     });
 
@@ -202,6 +232,16 @@ describe(`Balance Test Suite`, () => {
             // ACT
             // ASSERT
             expect(() => { testBalance.validateEntry(nullEntry) }).toThrowError();
+        });
+        it(`should throw an error if number is less than 0 (-1)`, () => {
+
+            // ARRANGE
+            const lessThanZeroAmount = -1;
+
+            // ACT
+            // ASSERT
+            expect(() => { testBalance.validateEntry(lessThanZeroAmount) }).toThrowError();
+
         });
     });
 

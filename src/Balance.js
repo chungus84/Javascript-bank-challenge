@@ -18,7 +18,7 @@ class Balance {
     makeTransaction(transactionType, amount) {
         this.validateEntry(amount)
         if (transactionType === `debit`) {
-            if (amount > this.#balance) throw new Error(`You do not have enough in your account`)
+            if (amount > this.#balance) throw new Error(`You do not have enough in your account`);
             this.#balance -= parseFloat(amount);
         } else { this.#balance += parseFloat(amount); }
     }
